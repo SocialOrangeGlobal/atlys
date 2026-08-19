@@ -99,8 +99,8 @@ export default function LeafletMap() {
             >
               <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
-            <div className="shadow-[0_20px_60px_rgba(0,0,0,0.3)] rounded-[32px] overflow-hidden bg-white max-h-[85vh] overflow-y-auto">
-              <CountryCard card={card} idx={activeIdx} />
+            <div className="shadow-[0_20px_60px_rgba(0,0,0,0.5)] rounded-[28px] sm:rounded-[32px] overflow-hidden bg-neutral-900 border border-white/20 max-h-[85vh] overflow-y-auto">
+              <CountryCard card={card} idx={activeIdx} inModal={true} />
             </div>
           </div>
         );
