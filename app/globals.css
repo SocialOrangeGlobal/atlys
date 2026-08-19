@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-primary: #0B4F3C;
+  --brand-primary-light: #E7F3EE;
+  --accent-cta: #FF6B4A;
+  --neutral-ink: #0F1417;
+  --neutral-body: #4A5560;
+  --neutral-bg: #FFFFFF;
+  --neutral-card-bg: #F5F6F4;
+  --border-subtle: #E4E7E5;
+  --success: #1B9C6E;
+  --warning: #F5A623;
+  --error: #E5484D;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-light: var(--brand-primary-light);
+  --color-accent-cta: var(--accent-cta);
+  --color-ink: var(--neutral-ink);
+  --color-body: var(--neutral-body);
+  --color-background: var(--neutral-bg);
+  --color-card-bg: var(--neutral-card-bg);
+  --color-border-subtle: var(--border-subtle);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  
+  /* Typography scale */
+  --text-hero: 64px;
+  --text-hero--line-height: 1;
+  --text-h2: 40px;
+  --text-h2--line-height: 48px;
+  --text-h3: 28px;
+  --text-h3--line-height: 36px;
+  --text-h4: 20px;
+  --text-h4--line-height: 28px;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body: 16px;
+  --text-body--line-height: 24px;
+  --text-caption: 13px;
+  --text-caption--line-height: 18px;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--neutral-bg);
+  color: var(--neutral-body);
+  font-family: var(--font-sans);
 }

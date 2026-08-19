@@ -1,69 +1,100 @@
-import Image from "next/image";
+import React from "react"
+import { Navbar } from "@/components/global/navbar"
+import Link from "next/link"
+import { Sparkles, Map, ArrowRight, Plane, FileText, CheckCircle2 } from "lucide-react"
+import { FilterBar } from "@/components/global/filter-bar"
+import { SmoothScroll } from "@/components/global/smooth-scroll"
+import { FloatingButtons } from "@/components/global/floating-buttons"
+import dynamic from 'next/dynamic'
 
-export default function Home() {
+const CountryGrid = dynamic(() => import('@/components/home/country-grid').then(mod => mod.CountryGrid), { ssr: true })
+const EventsGrid = dynamic(() => import('@/components/home/events-grid').then(mod => mod.EventsGrid), { ssr: true })
+const Footer = dynamic(() => import('@/components/global/footer').then(mod => mod.Footer), { ssr: true })
+
+export default async function Home(props: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
+  const searchParams = await props.searchParams;
+  const tab = searchParams?.tab || 'explore';
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <SmoothScroll>
+      <main className="flex min-h-screen flex-col bg-[#FAFAFA] font-sans selection:bg-[#4F46E5] selection:text-white relative overflow-x-clip">
+        
+      {/* Immersive Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-[800px] overflow-hidden pointer-events-none z-0">
+         <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[70%] rounded-full bg-gradient-to-tr from-[#4F46E5]/10 to-transparent blur-[120px]" />
+         <div className="absolute top-[10%] -right-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-bl from-[#00d65b]/10 to-transparent blur-[120px]" />
+         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-40 mix-blend-multiply" />
+      </div>
+
+      <Navbar />
+
+      {/* Massive Hero Section */}
+      <section className="relative pt-40 pb-32 px-4 md:px-6 flex flex-col items-center text-center z-30 w-full">
+        
+        {/* Floating Badges for Engagement */}
+        <div className="absolute top-40 left-[15%] hidden lg:flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-md rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.05)] border border-white/40 animate-[float_6s_ease-in-out_infinite] rotate-[-5deg]">
+           <div className="bg-[#ecfdf5] p-1.5 rounded-xl"><CheckCircle2 className="w-5 h-5 text-[#00d65b]" /></div>
+           <div className="flex flex-col text-left">
+             <span className="text-[10px] font-bold text-neutral-500 uppercase">Success Rate</span>
+             <span className="text-sm font-extrabold text-neutral-900">99.8%</span>
+           </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="absolute top-52 right-[15%] hidden lg:flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-md rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.05)] border border-white/40 animate-[float_7s_ease-in-out_infinite_reverse] rotate-[5deg]">
+           <div className="bg-[#EEF2FF] p-1.5 rounded-xl"><Plane className="w-5 h-5 text-[#4F46E5]" /></div>
+           <div className="flex flex-col text-left">
+             <span className="text-[10px] font-bold text-neutral-500 uppercase">Delivery</span>
+             <span className="text-sm font-extrabold text-neutral-900">On Time</span>
+           </div>
         </div>
+
+        {/* Hero Content */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-neutral-200 shadow-sm mb-8 hover:scale-105 transition-transform cursor-pointer">
+          <Sparkles className="w-4 h-4 text-[#4F46E5]" />
+          <span className="text-xs font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4F46E5] to-[#00d65b]">The smartest way to get a visa</span>
+        </div>
+
+        <h1 className="text-5xl md:text-7xl lg:text-[84px] font-extrabold tracking-tighter text-neutral-900 mb-6 max-w-5xl leading-[1.1]">
+          Borderless travel <br className="hidden md:block"/> starts <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] via-[#00d65b] to-[#4F46E5] animate-gradient bg-[length:200%_auto]">here.</span>
+        </h1>
+        <p className="text-lg md:text-xl text-neutral-500 font-medium max-w-2xl mb-14">
+          Experience the fastest, most reliable way to get your visa. Smart, streamlined applications with guaranteed on-time delivery.
+        </p>
+
+        {/* Main Filter Bar */}
+        <div className="relative w-full max-w-4xl mx-auto flex justify-center z-40">
+          <FilterBar tab={tab as string} />
+        </div>
+      </section>
+
+      {/* Bento Grid Section */}
+      <section className="px-4 md:px-6 pb-32 relative z-10 mt-12">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="flex items-center justify-between mb-10">
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900">
+              {tab === 'events' ? 'Popular Events' : 'Popular Destinations'}
+            </h2>
+            <Link href="#" className="hidden md:flex items-center gap-2 text-sm font-bold text-neutral-900 hover:text-[#4F46E5] transition-colors group px-5 py-2.5 bg-white border border-neutral-200 rounded-full shadow-sm hover:shadow-md">
+              View all <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <React.Suspense fallback={
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => (
+                <div key={i} className="w-full h-[320px] bg-neutral-200 animate-pulse rounded-[32px]"></div>
+              ))}
+            </div>
+          }>
+            {tab === 'events' ? <EventsGrid /> : <CountryGrid />}
+          </React.Suspense>
+        </div>
+      </section>
+
+      <FloatingButtons />
+
+      <Footer />
       </main>
-    </div>
-  );
+    </SmoothScroll>
+  )
 }
