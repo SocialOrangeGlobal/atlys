@@ -1,7 +1,5 @@
 # Atlys - Modern Visa & Global Event Application Platform
 
-![Atlys Banner](https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1400&q=80)
-
 <div align="center">
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
