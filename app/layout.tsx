@@ -62,8 +62,9 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} antialiased`}
+      suppressHydrationWarning
     >
-      <body className="antialiased text-neutral-900 bg-[#FAFAFA] overflow-x-hidden">{children}</body>
+      <body className="antialiased text-neutral-900 bg-[#FAFAFA] overflow-x-hidden" suppressHydrationWarning>{children}</body>
     </html>
   );
 }

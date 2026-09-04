@@ -8,22 +8,27 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import { SearchModal } from "@/components/modals/search-modal"
 import { SignInModal } from "@/components/modals/sign-in-modal"
 
-export function Navbar() {
+function NavbarContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   
+  const [mounted, setMounted] = React.useState(false)
+  const [isScrolled, setIsScrolled] = React.useState(false)
+  const [isHidden, setIsHidden] = React.useState(false)
+  const [isSearchOpen, setIsSearchOpen] = React.useState(false)
+  const [isSignInOpen, setIsSignInOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
   let activeTab = searchParams.get('tab') || 'explore'
   if (pathname.startsWith('/events')) {
     activeTab = 'events'
   } else if (pathname.startsWith('/visa')) {
     activeTab = 'explore'
   }
-
-  const [isScrolled, setIsScrolled] = React.useState(false)
-  const [isHidden, setIsHidden] = React.useState(false)
-  const [isSearchOpen, setIsSearchOpen] = React.useState(false)
-  const [isSignInOpen, setIsSignInOpen] = React.useState(false)
 
   // Global Keyboard shortcut: Cmd+K / Ctrl+K to open Search
   React.useEffect(() => {
@@ -68,6 +73,9 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [pathname])
 
+  const effectiveScrolled = mounted && isScrolled
+  const effectiveHidden = mounted && isHidden
+
   const handleTabChange = (tab: "explore" | "events") => {
     if (pathname === '/') {
       const params = new URLSearchParams(searchParams.toString())
@@ -80,11 +88,11 @@ export function Navbar() {
 
   return (
     <>
-    <div className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled ? 'pt-2.5 sm:pt-4' : 'pt-3 sm:pt-6'} ${isHidden ? '-translate-y-[150%] opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
+    <div className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${effectiveScrolled ? 'pt-2.5 sm:pt-4' : 'pt-3 sm:pt-6'} ${effectiveHidden ? '-translate-y-[150%] opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
       <header 
         className={`
           flex items-center justify-between transition-all duration-500 relative
-          ${isScrolled 
+          ${effectiveScrolled 
             ? 'w-[96%] max-w-[1240px] h-15 sm:h-16 rounded-[28px] sm:rounded-[32px] bg-white/95 backdrop-blur-2xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.12)] px-3.5 sm:px-6 md:px-8' 
             : 'w-[98%] max-w-[1440px] h-16 sm:h-18 md:h-20 rounded-[28px] sm:rounded-[32px] md:rounded-[40px] bg-white/90 backdrop-blur-2xl border border-white/80 px-3.5 sm:px-6 md:px-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)]'
           }
@@ -98,7 +106,7 @@ export function Navbar() {
 
           {/* Nav Tabs (Hides on laptop when scrolled to make room for Search bar) */}
           <nav className={`items-center gap-1 bg-neutral-100/90 p-1 rounded-full border border-neutral-200/60 shadow-inner transition-all duration-300 ${
-            isScrolled ? 'hidden xl:flex' : 'hidden md:flex'
+            effectiveScrolled ? 'hidden xl:flex' : 'hidden md:flex'
           }`}>
             <button
               onClick={() => handleTabChange("explore")}
@@ -125,7 +133,7 @@ export function Navbar() {
 
         {/* Center Section - Search Bar (Visible when scrolled, interactive pill with brand theme & shortcuts) */}
         <div className={`absolute left-1/2 -translate-x-1/2 transition-all duration-500 z-20 pointer-events-none ${
-          isScrolled ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-95'
+          effectiveScrolled ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-95'
         }`}>
            <button 
              onClick={() => setIsSearchOpen(true)}
@@ -157,7 +165,7 @@ export function Navbar() {
           </div>
 
           {/* Quick Search Trigger (Visible when NOT scrolled on desktop) */}
-          {!isScrolled && (
+          {!effectiveScrolled && (
             <button
               onClick={() => setIsSearchOpen(true)}
               className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-100/90 hover:bg-neutral-200/80 border border-neutral-200/60 text-neutral-600 hover:text-neutral-900 transition-all text-[12px] font-bold shrink-0 group hover:border-[#4F46E5]/30 active:scale-95"
@@ -193,7 +201,7 @@ export function Navbar() {
              >
                <span className="text-[12px] sm:text-[14px] font-bold">Sign in</span>
                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors shrink-0">
-                 <User className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
+                 <User className="w-3.5 h-3.5 text-white" />
                </div>
              </button>
           </div>
@@ -229,3 +237,10 @@ export function Navbar() {
   )
 }
 
+export function Navbar() {
+  return (
+    <React.Suspense fallback={null}>
+      <NavbarContent />
+    </React.Suspense>
+  )
+}
