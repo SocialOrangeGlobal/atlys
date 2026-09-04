@@ -31,16 +31,9 @@ export default function Icon() {
             transform: "rotate(45deg)",
           }}
         >
-          <defs>
-            <linearGradient id="planeGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#4F46E5" />
-              <stop offset="50%" stopColor="#9333EA" />
-              <stop offset="100%" stopColor="#00D65B" />
-            </linearGradient>
-          </defs>
           <path
             d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"
-            fill="url(#planeGrad)"
+            fill="#FFFFFF"
           />
         </svg>
       </div>
