@@ -16,52 +16,33 @@ export default function Icon() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #0A0E1A 0%, #121829 100%)",
-          borderRadius: 8,
-          position: "relative",
-          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.15)",
+          backgroundColor: "#000000",
+          borderRadius: "50%",
+          overflow: "hidden",
         }}
       >
-        {/* Top Contrail flight line + plane dot */}
-        <div
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
           style={{
-            position: "absolute",
-            top: 4,
-            left: 5,
-            right: 5,
-            height: 1.5,
-            background: "linear-gradient(90deg, #4F46E5, #9333EA, #00D65B)",
-            borderRadius: 2,
-          }}
-        />
-
-        {/* Monogram GG */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "baseline",
-            fontWeight: 900,
-            fontSize: 16,
-            fontFamily: "system-ui, sans-serif",
-            lineHeight: 1,
-            marginTop: 4,
-            letterSpacing: -1,
+            transform: "rotate(45deg)",
           }}
         >
-          <span style={{ color: "#FFFFFF" }}>G</span>
-          <span
-            style={{
-              background: "linear-gradient(90deg, #4F46E5, #00D65B)",
-              backgroundClip: "text",
-              color: "#00D65B",
-            }}
-          >
-            G
-          </span>
-        </div>
+          <defs>
+            <linearGradient id="planeGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#4F46E5" />
+              <stop offset="50%" stopColor="#9333EA" />
+              <stop offset="100%" stopColor="#00D65B" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"
+            fill="url(#planeGrad)"
+          />
+        </svg>
       </div>
     ),
     {
