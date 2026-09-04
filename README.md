@@ -1,4 +1,4 @@
-# Atlys - Modern Visa & Global Event Application Platform
+# Global Getaway - Modern Visa & Global Event Application Platform
 
 <div align="center">
 
@@ -18,7 +18,7 @@
 
 ## 📌 Project Overview
 
-**Atlys** is a modern, responsive web application designed to replicate and elevate the world-class visa discovery and application experience. Built with Next.js App Router, Tailwind CSS, and Framer Motion, it provides travelers with real-time visa requirements, transparent fee structures, guaranteed delivery timelines, and event-focused visa applications.
+**Global Getaway** is a modern, responsive web application designed to deliver a world-class visa discovery and application experience. Built with Next.js App Router, Tailwind CSS, and Framer Motion, it provides travelers with real-time visa requirements, transparent fee structures, guaranteed delivery timelines, and event-focused visa applications.
 
 ---
 
@@ -26,13 +26,13 @@
 
 ### 1. 🌍 Country Visa Hub (`/` & `/visa/[country]`)
 - **Instant Discovery**: Browse 40+ countries with live visa availability, length of stay, validity, and guaranteed ETA.
-- **Dynamic Pricing Calculator**: Live fee breakdown (Government fees + Atlys service fees) with multi-applicant scaling and instant express toggle.
-- **Document & Process Breakdown**: Clear requirements timeline, partner integrations (MakeMyTrip, IndiGo), and Atlys Protect guarantees.
+- **Dynamic Pricing Calculator**: Live fee breakdown (Government fees + Global Getaway service fees) with multi-applicant scaling and instant express toggle.
+- **Document & Process Breakdown**: Clear requirements timeline, partner integrations (MakeMyTrip, IndiGo), and Global Getaway Protect guarantees.
 
 ### 2. 🎟️ Global Events Visa Portal (`/events/[slug]`)
 - **Event-First Travel**: Curated global summits and conferences (e.g. *One Young World Summit*, *Tomorrowland*, *Web Summit*).
 - **Synchronized Sub-Navigation**: Full `sticky top-0` navigation bar with automatic active-section scroll centering for mobile screens.
-- **Atlys Shield Protection**: Built-in delay protection and $100 ticket refund insurance guarantees.
+- **Global Getaway Shield Protection**: Built-in delay protection and $100 ticket refund insurance guarantees.
 
 ### 3. 🗺️ Interactive Global Map (`/map`)
 - **Leaflet Geo-Navigation**: Interactive world map with custom flag pins for all supported visa destinations.
@@ -83,7 +83,7 @@ atlys/
 │   │   ├── filter-bar.tsx         # Category filter pills & search bar
 │   │   ├── footer.tsx             # Responsive global footer with safe area padding
 │   │   ├── leaflet-map.tsx        # Dynamic Leaflet map container & modal
-│   │   ├── logo.tsx               # Vector SVG Atlys Brand Logo
+│   │   ├── logo.tsx               # Vector SVG Global Getaway Brand Logo
 │   │   ├── navbar.tsx             # Hide-on-scroll header & mobile bottom tabs (z-[100])
 │   │   └── smooth-scroll.tsx      # Smooth scrolling enhancement
 │   ├── home/

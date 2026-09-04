@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Atlys | Visas made simple",
-  description: "Get your visa on time, guaranteed.",
+  title: "Global Getaway | Visas made simple",
+  description: "Get your visa on time, guaranteed with Global Getaway.",
 };
 
 export default function RootLayout({

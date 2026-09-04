@@ -263,7 +263,7 @@ export default function VisaPage() {
           <FadeIn>
             <div className="text-center mb-16">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EEF2FF] text-[#4F46E5] text-[11px] font-bold tracking-widest uppercase mb-4">
-                <Sparkles className="w-3.5 h-3.5" /> Why Atlys
+                <Sparkles className="w-3.5 h-3.5" /> Why Global Getaway
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-neutral-900 mb-4">Visa Information</h2>
               <p className="text-lg text-neutral-500 font-medium max-w-2xl mx-auto">Clear, transparent pricing. No hidden fees, no surprises.</p>
@@ -271,7 +271,7 @@ export default function VisaPage() {
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Atlys Card */}
+            {/* Global Getaway Card */}
             <FadeIn delay={0.1}>
               <div className="relative bg-white rounded-[32px] border-2 border-[#4F46E5]/20 p-8 shadow-[0_0_0_1px_rgba(79,70,229,0.05),0_20px_60px_-10px_rgba(79,70,229,0.1)] hover:shadow-[0_0_0_1px_rgba(79,70,229,0.1),0_30px_80px_-10px_rgba(79,70,229,0.15)] transition-all duration-500 group">
                 {/* Recommended badge */}
@@ -280,9 +280,9 @@ export default function VisaPage() {
                 </div>
 
                 <div className="flex items-center gap-3 mb-8 mt-2">
-                  <div className="w-10 h-10 rounded-xl bg-[#4F46E5] flex items-center justify-center text-white font-extrabold text-sm shadow-md">A</div>
+                  <div className="w-10 h-10 rounded-xl bg-[#4F46E5] flex items-center justify-center text-white font-extrabold text-sm shadow-md">GG</div>
                   <div>
-                    <h3 className="font-extrabold text-lg text-neutral-900">Atlys</h3>
+                    <h3 className="font-extrabold text-lg text-neutral-900">Global Getaway</h3>
                     <p className="text-xs text-neutral-500 font-medium">Official visa partner</p>
                   </div>
                 </div>
@@ -572,7 +572,7 @@ export default function VisaPage() {
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="flex-1">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Ready to get your {displayName} visa?</h2>
-                <p className="text-neutral-400 text-lg font-medium max-w-lg">Join 2M+ travellers who trust Atlys for their visa applications. Get started in under 2 minutes.</p>
+                <p className="text-neutral-400 text-lg font-medium max-w-lg">Join 2M+ travellers who trust Global Getaway for their visa applications. Get started in under 2 minutes.</p>
               </div>
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -605,11 +605,11 @@ export default function VisaPage() {
                 {[
                   {
                     q: `Do Indians need a visa for ${displayName}?`,
-                    a: `Yes, Indian passport holders need a valid e-Visa to enter ${displayName}. You can apply easily through Atlys and receive your approved visa via email.`
+                    a: `Yes, Indian passport holders need a valid e-Visa to enter ${displayName}. You can apply easily through Global Getaway and receive your approved visa via email.`
                   },
                   {
                     q: `How long does the ${displayName} visa take?`,
-                    a: `With Atlys, your visa is typically approved within 2 business days. During peak season, it may take up to 3 business days.`
+                    a: `With Global Getaway, your visa is typically approved within 2 business days. During peak season, it may take up to 3 business days.`
                   },
                   {
                     q: `What is the validity of the ${displayName} e-Visa?`,
@@ -621,11 +621,11 @@ export default function VisaPage() {
                   },
                   {
                     q: `Can I track my ${displayName} visa application status?`,
-                    a: `Yes! Atlys provides real-time tracking for all applications. You'll receive notifications at every step via email and SMS.`
+                    a: `Yes! Global Getaway provides real-time tracking for all applications. You'll receive notifications at every step via email and SMS.`
                   },
                   {
                     q: `What happens if my visa gets rejected?`,
-                    a: `Atlys has a 99.8% approval rate. In the rare case of rejection, we offer a full refund of our service fee.`
+                    a: `Global Getaway has a 99.8% approval rate. In the rare case of rejection, we offer a full refund of our service fee.`
                   },
                   {
                     q: `Is emergency processing available?`,

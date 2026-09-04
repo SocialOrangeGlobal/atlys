@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { Logo } from "@/components/global/logo"
 import {
   Dialog,
   DialogContent,
@@ -21,7 +22,10 @@ export function SignInModal({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-md">
-        <DialogHeader>
+        <DialogHeader className="flex flex-col items-center justify-center">
+          <div className="mb-2">
+            <Logo />
+          </div>
           <DialogTitle className="text-center">
             {tab === "signin" ? "Sign In" : "Sign Up"}
           </DialogTitle>

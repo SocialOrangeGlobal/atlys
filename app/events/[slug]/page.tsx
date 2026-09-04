@@ -255,7 +255,7 @@ export default function EventVisaPage() {
 
                   <div className="flex items-center justify-between pb-4 sm:pb-6 border-b border-neutral-100 text-sm sm:text-base">
                     <div className="flex items-center gap-2 sm:gap-3 font-bold text-[#4F46E5] shrink-0 pr-2">
-                      <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" /> Atlys Fees
+                      <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" /> Global Getaway Fees
                     </div>
                     <span className="font-bold text-[#4F46E5]">₹{(isFast ? 5888 : 3528) * travellers}</span>
                   </div>
@@ -273,12 +273,12 @@ export default function EventVisaPage() {
                 </div>
               </div>
 
-              {/* Atlys Protect Promo */}
+              {/* Global Getaway Protect Promo */}
               <div className="mt-4 bg-[#1e293b] rounded-[20px] sm:rounded-[24px] p-4 sm:p-6 text-white flex items-start gap-3 sm:gap-4 shadow-sm">
                 <img src="/sheild.avif" alt="Shield" className="w-6 h-6 shrink-0 mt-0.5" />
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <h4 className="font-bold text-sm sm:text-base">Atlys Protect</h4>
+                    <h4 className="font-bold text-sm sm:text-base">Global Getaway Protect</h4>
                     <span className="bg-white/10 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Included</span>
                   </div>
                   <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
@@ -381,7 +381,7 @@ export default function EventVisaPage() {
               },
               {
                 step: 2,
-                title: "Atlys thoroughly review everything",
+                title: "Global Getaway thoroughly reviews everything",
                 desc: "No scope for error.",
                 icon: <div className="w-12 h-12 rounded-full border-[3px] border-blue-500 flex items-center justify-center font-bold text-xs bg-white text-blue-600">7320</div>
               },
@@ -421,7 +421,7 @@ export default function EventVisaPage() {
           <div className="bg-[#F8F8F8] rounded-[24px] sm:rounded-[32px] md:rounded-[40px] p-4 sm:p-8 md:p-12 relative overflow-hidden border border-neutral-100">
             <div className="grid grid-cols-12 gap-2 sm:gap-4 items-center font-bold border-b border-neutral-200 pb-3 sm:pb-4 mb-3 sm:mb-4">
               <div className="col-span-6"></div>
-              <div className="col-span-3 text-center text-sm sm:text-lg md:text-xl text-neutral-900 font-extrabold">atlys<span className="text-[#4F46E5]">✈</span></div>
+              <div className="col-span-3 text-center text-sm sm:text-lg md:text-xl text-neutral-900 font-extrabold">Global Getaway<span className="text-[#4F46E5]">✈</span></div>
               <div className="col-span-3 text-center text-xs sm:text-base text-neutral-400 font-medium">Others</div>
             </div>
 
@@ -480,8 +480,8 @@ export default function EventVisaPage() {
             {[
               { init: "PK", name: "Pradeep Khandelwal", date: "20th Apr 26", text: "Within factions of minutes, I received the South African visa . You are super professional Thank you.", platform: "App Store", color: "bg-blue-100 text-blue-600" },
               { init: "UZ", name: "ucmaspune zoom", date: "5th Mar 26", text: "excellent initiative. My South Africa visa was a breeze....did not know things could be that easy. So was Ethiopia", platform: "Google Play", color: "bg-green-100 text-green-600" },
-              { init: "SA", name: "Sankathy", date: "22nd Feb 26", text: "Atlys has upped their game by providing backend support on call and also emergency support in case of any issues with visa documents. Have used their services for gettin...", platform: "App Store", color: "bg-blue-100 text-blue-600" },
-              { init: "BP", name: "Bijoy Peter Alappattu", date: "12th Jan 26", text: "I was trying south africa visa to attend a conference. Several weeks tried through VFS and Akbar Travels and was not getting processed. Finally approached Atlys and the...", platform: "Trustpilot", color: "bg-green-100 text-green-600" }
+              { init: "SA", name: "Sankathy", date: "22nd Feb 26", text: "Global Getaway has upped their game by providing backend support on call and also emergency support in case of any issues with visa documents. Have used their services for gettin...", platform: "App Store", color: "bg-blue-100 text-blue-600" },
+              { init: "BP", name: "Bijoy Peter Alappattu", date: "12th Jan 26", text: "I was trying south africa visa to attend a conference. Several weeks tried through VFS and Akbar Travels and was not getting processed. Finally approached Global Getaway and the...", platform: "Trustpilot", color: "bg-green-100 text-green-600" }
             ].map((rev, i) => (
               <div key={i} className="min-w-[260px] sm:min-w-[280px] w-[260px] sm:w-[280px] md:min-w-[320px] md:w-[320px] text-left border border-neutral-800 rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 snap-center bg-[#181818] flex flex-col justify-between shrink-0">
                 <div>
@@ -510,11 +510,11 @@ export default function EventVisaPage() {
       <section className="py-14 sm:py-16 md:py-24 pb-20 sm:pb-24 md:pb-32 bg-white overflow-hidden px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-[1440px] mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-neutral-900 mb-2 sm:mb-4">Government Relations</h2>
-          <p className="text-neutral-500 font-medium text-xs sm:text-sm md:text-base mb-8 sm:mb-12 md:mb-16">Our atlys ambassadors forming government relations</p>
+          <p className="text-neutral-500 font-medium text-xs sm:text-sm md:text-base mb-8 sm:mb-12 md:mb-16">Our Global Getaway ambassadors forming government relations</p>
 
           <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 sm:pb-8 hide-scrollbar snap-x px-2 sm:px-4 md:px-0 justify-start md:justify-center">
             {[
-              { img: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=600&h=800&fit=crop", name: "Achal Uppal", title: "Atlys Ambassador" },
+              { img: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=600&h=800&fit=crop", name: "Achal Uppal", title: "Global Getaway Ambassador" },
               { img: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600&h=800&fit=crop", name: "H.E. Marje Luup", title: "Ambassador of Estonia" },
               { img: "https://images.unsplash.com/photo-1555848962-6e79363ec58f?w=600&h=800&fit=crop", name: "Mohak Nahta", title: "CEO" },
             ].map((gov, i) => (
@@ -543,7 +543,7 @@ export default function EventVisaPage() {
             {[
               {
                 q: `How long does the ${displayName} visa take?`,
-                a: `With Atlys, your visa is typically approved within 2 business days. We recommend applying at least a week before ${event.title} to account for peak event seasons.`
+                a: `With Global Getaway, your visa is typically approved within 2 business days. We recommend applying at least a week before ${event.title} to account for peak event seasons.`
               },
               {
                 q: `What is the validity of the ${displayName} visa?`,
@@ -555,7 +555,7 @@ export default function EventVisaPage() {
               },
               {
                 q: `What happens if my visa gets rejected before the event?`,
-                a: `Atlys has a 99.8% approval rate. In the rare case of rejection, we offer a full refund of our service fee.`
+                a: `Global Getaway has a 99.8% approval rate. In the rare case of rejection, we offer a full refund of our service fee.`
               }
             ].map((faq, i) => (
               <AccordionItem key={i} value={`faq-${i}`} className="border-b border-neutral-200/80 py-1">

@@ -251,7 +251,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
   return (
     <div ref={containerRef} className="relative z-40 w-full px-2 sm:px-6 flex justify-center">
       
-      {/* Exact Atlys Style Pill */}
+      {/* Brand Style Pill */}
       <div className="flex items-center rounded-[20px] md:rounded-[1000px] border border-[#D6D9DC] bg-white px-2 sm:px-3 md:px-10 py-2.5 sm:py-3 md:pt-4 md:pb-3.5 shadow-[0_15px_20px_0_rgba(31,41,55,0.08)] w-full sm:w-auto">
         
         {/* Visa Delivery */}
