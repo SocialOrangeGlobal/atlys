@@ -8,6 +8,7 @@ import { notFound, useParams } from "next/navigation"
 import { Check, Clock, ShieldCheck, Zap, FileText, Star, ArrowRight, Users, Globe2, ChevronRight, Sparkles, BadgeCheck } from "lucide-react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { SignInModal } from "@/components/modals/sign-in-modal"
 import React from "react"
 
 /* ─── Animated Counter ─── */
@@ -72,6 +73,8 @@ export default function VisaPage() {
 
   const displayName = country.name.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ')
 
+  const [isSignInOpen, setIsSignInOpen] = React.useState(false)
+
   const { scrollYProgress } = useScroll()
   const heroScale = useTransform(scrollYProgress, [0, 0.15], [1.05, 1.2])
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0])
@@ -130,7 +133,7 @@ export default function VisaPage() {
       {/* ╔══════════════════════════════════════════════════════╗
           ║                   HERO SECTION                      ║
           ╚══════════════════════════════════════════════════════╝ */}
-      <section className="relative w-full h-[90vh] min-h-[640px] max-h-[900px] flex flex-col items-center justify-center overflow-hidden">
+      <section className="relative w-full min-h-[560px] md:min-h-[640px] flex flex-col items-center justify-center overflow-hidden pt-28 sm:pt-32 pb-14 sm:pb-20">
         <motion.div style={{ scale: heroScale }} className="absolute inset-0">
           <Image
             src={country.image}
@@ -142,92 +145,92 @@ export default function VisaPage() {
           />
         </motion.div>
 
-        {/* Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-white" />
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white to-transparent" />
+        {/* Cinematic Dark Overlays for maximum text & CTA contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/85" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
 
         <motion.div
           style={{ opacity: heroOpacity }}
-          className="relative z-10 w-full flex flex-col items-center text-center text-white px-4 sm:px-6 pt-28 md:pt-32 pb-8"
+          className="relative z-10 w-full flex flex-col items-center text-center text-white px-4 sm:px-6 my-auto"
         >
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 mb-4 md:mb-8 shadow-lg"
+            className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 mb-3.5 sm:mb-5 shadow-lg"
           >
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00d65b] opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00d65b]" />
             </span>
-            <span className="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase text-white/90">Visas on time, guaranteed</span>
+            <span className="text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase text-white/90">Visas on time, guaranteed</span>
           </motion.div>
 
           {/* Flag */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl overflow-hidden border-2 border-white/30 shadow-2xl mb-4 md:mb-6"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border-2 border-white/30 shadow-2xl mb-3 sm:mb-4"
           >
             <img src={`https://flagcdn.com/w160/${country.code.toLowerCase()}.png`} alt={displayName} className="w-full h-full object-cover" />
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 drop-shadow-2xl"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-2.5 sm:mb-3 drop-shadow-2xl"
           >
-            {displayName} <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60">Visa</span>
+            {displayName} <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/70">Visa</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.55 }}
-            className="text-base md:text-xl font-medium text-white/70 mb-8 md:mb-10 max-w-xl px-4"
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="text-sm sm:text-base md:text-lg font-medium text-white/80 mb-5 sm:mb-7 max-w-xl px-4"
           >
             Get your visa approved in as fast as 2 days. AI-powered, hassle-free.
           </motion.p>
 
           {/* Quick Stats Pill */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.65 }}
-            className="inline-flex flex-row items-center justify-center gap-6 sm:gap-10 md:gap-14 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl sm:rounded-full px-6 sm:px-10 md:px-14 py-3.5 sm:py-4 mb-6 md:mb-10 shadow-2xl w-auto max-w-xl mx-auto"
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="inline-flex flex-row items-center justify-center gap-6 sm:gap-10 md:gap-14 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl sm:rounded-full px-6 sm:px-10 md:px-12 py-3 sm:py-3.5 mb-7 sm:mb-9 shadow-2xl w-auto max-w-xl mx-auto"
           >
             <div className="text-center">
               <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-white/60">Type</p>
-              <p className="font-extrabold text-base sm:text-lg text-white">{country.type}</p>
+              <p className="font-extrabold text-sm sm:text-base md:text-lg text-white">{country.type}</p>
             </div>
-            <div className="w-px h-7 sm:h-8 bg-white/20 shrink-0" />
+            <div className="w-px h-6 sm:h-7 bg-white/20 shrink-0" />
             <div className="text-center">
               <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-white/60">Valid</p>
-              <p className="font-extrabold text-base sm:text-lg text-white">{country.valid || "90 Days"}</p>
+              <p className="font-extrabold text-sm sm:text-base md:text-lg text-white">{country.valid || "90 Days"}</p>
             </div>
-            <div className="w-px h-7 sm:h-8 bg-white/20 shrink-0" />
+            <div className="w-px h-6 sm:h-7 bg-white/20 shrink-0" />
             <div className="text-center">
               <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-white/60">Price</p>
-              <p className="font-extrabold text-base sm:text-lg text-white">{country.fees || "Free"}</p>
+              <p className="font-extrabold text-sm sm:text-base md:text-lg text-white">{country.fees || "Free"}</p>
             </div>
           </motion.div>
 
           {/* CTA */}
           <motion.button
-            initial={{ opacity: 0, y: 20 }}
+            type="button"
+            onClick={() => setIsSignInOpen(true)}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.75 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            className="group relative overflow-hidden bg-white text-black font-extrabold rounded-full px-10 py-5 text-lg shadow-[0_0_60px_rgba(255,255,255,0.25)] transition-all"
+            transition={{ duration: 0.5, delay: 0.7 }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="group relative inline-flex items-center gap-2.5 bg-white hover:bg-neutral-100 text-neutral-900 font-extrabold text-base sm:text-lg rounded-full px-8 sm:px-10 py-3.5 sm:py-4 shadow-[0_12px_36px_rgba(0,0,0,0.45)] hover:shadow-[0_16px_44px_rgba(0,0,0,0.55)] transition-all cursor-pointer border border-white/40 mb-4"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-            <span className="relative z-10 flex items-center gap-2">
-              Start Application <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </span>
+            <span>Start Application</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </motion.button>
         </motion.div>
       </section>
@@ -235,22 +238,39 @@ export default function VisaPage() {
       {/* ╔══════════════════════════════════════════════════════╗
           ║               STICKY SUB-NAVIGATION                 ║
           ╚══════════════════════════════════════════════════════╝ */}
-      <div className="sticky top-0 z-[60] bg-white/95 backdrop-blur-xl border-b border-neutral-100 w-full shadow-sm">
-        <div ref={scrollContainerRef} className="max-w-5xl mx-auto flex items-center md:justify-center gap-1 py-2 px-4 overflow-x-auto hide-scrollbar scroll-smooth">
-          {navItems.map(item => (
-            <a
-              key={item.id}
-              data-id={item.id}
-              href={`#${item.id}`}
-              className={`px-5 py-2.5 rounded-full text-[13px] font-bold transition-all duration-300 whitespace-nowrap ${
-                activeSection === item.id
-                  ? "bg-neutral-900 text-white shadow-sm"
-                  : "text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100"
-              }`}
+      <div className="sticky top-0 z-[60] bg-white/95 backdrop-blur-xl border-b border-neutral-200/80 w-full shadow-sm">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-3 sm:gap-6 py-2.5 px-4 sm:px-6">
+          <div ref={scrollContainerRef} className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto hide-scrollbar scroll-smooth">
+            {navItems.map(item => (
+              <a
+                key={item.id}
+                data-id={item.id}
+                href={`#${item.id}`}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-bold transition-all duration-300 whitespace-nowrap ${
+                  activeSection === item.id
+                    ? "bg-neutral-900 text-white shadow-sm"
+                    : "text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100"
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="hidden md:flex flex-col text-right pr-1">
+              <span className="text-[10px] uppercase font-bold text-neutral-400 leading-tight">Total Price</span>
+              <span className="text-sm font-extrabold text-neutral-900 leading-tight">{country.fees || "₹2,500"}</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsSignInOpen(true)}
+              className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-black text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-bold text-xs sm:text-sm shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
             >
-              {item.label}
-            </a>
-          ))}
+              <span>Start Application</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -575,9 +595,11 @@ export default function VisaPage() {
                 <p className="text-neutral-400 text-lg font-medium max-w-lg">Join 2M+ travellers who trust Global Getaway for their visa applications. Get started in under 2 minutes.</p>
               </div>
               <motion.button
+                type="button"
+                onClick={() => setIsSignInOpen(true)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-white text-black font-extrabold rounded-full px-10 py-5 text-lg shadow-lg shrink-0"
+                className="bg-white text-black font-extrabold rounded-full px-10 py-5 text-lg shadow-lg shrink-0 cursor-pointer"
               >
                 Apply Now <ArrowRight className="w-5 h-5 inline-block ml-1" />
               </motion.button>
@@ -645,6 +667,7 @@ export default function VisaPage() {
       </div>
 
       <Footer />
+      <SignInModal isOpen={isSignInOpen} setIsOpen={setIsSignInOpen} />
     </main>
   )
 }
