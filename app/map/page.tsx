@@ -4,10 +4,9 @@ import React from "react"
 import Link from "next/link"
 import { ArrowLeft, Globe, MapPin } from "lucide-react"
 import dynamic from "next/dynamic"
-import { Logo } from "@/components/global/logo"
 
 // Dynamically import the leaflet map with ssr: false
-const LeafletMap = dynamic(() => import('@/components/global/leaflet-map'), { 
+const LeafletMap = dynamic(() => import('@/components/global/leaflet-map'), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex flex-col items-center justify-center bg-neutral-50 text-neutral-400 gap-3">
@@ -23,7 +22,7 @@ export default function MapPage() {
 
       {/* Floating Top Navigation Bar */}
       <div className="absolute top-4 left-4 right-4 sm:top-6 sm:left-6 sm:right-6 z-40 flex items-center justify-between pointer-events-none">
-        
+
         {/* Left: Back / Home Button + Brand Logo */}
         <div className="flex items-center gap-3 pointer-events-auto">
           <Link
@@ -33,10 +32,6 @@ export default function MapPage() {
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
             <span className="hidden sm:inline">Back to Explore</span>
             <span className="sm:hidden">Back</span>
-          </Link>
-
-          <Link href="/" className="hidden sm:flex items-center px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200/90 shadow-md hover:bg-white transition-colors">
-            <Logo className="scale-90 origin-left" />
           </Link>
         </div>
 
