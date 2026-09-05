@@ -11,7 +11,7 @@ export function CountryGrid() {
   const searchParams = useSearchParams()
 
   const typeFilter = searchParams.get("type")
-  const docsFilter = searchParams.get("docs")
+  const docsFilter = searchParams.get("documents") || searchParams.get("docs")
   const deliveryFilter = searchParams.get("delivery")
   const holidaysFilter = searchParams.get("holidays")
 
@@ -57,13 +57,20 @@ export function CountryGrid() {
       if (holidaysFilter && holidaysFilter !== 'all') {
         if (!cardDate) return false;
 
-        // Convert "19-aug-2026" to a real Javascript Date "19 Aug 2026"
-        const [day, monthStr, yearStr] = holidaysFilter.split('-');
-        const monthMap: Record<string, string> = { jan: "Jan", feb: "Feb", mar: "Mar", apr: "Apr", may: "May", jun: "Jun", jul: "Jul", aug: "Aug", sep: "Sep", oct: "Oct", nov: "Nov", dec: "Dec" };
-        const holidayDate = new Date(`${day} ${monthMap[monthStr] || 'Aug'} ${yearStr || '2026'}`);
+        // Convert "19-aug-2026" or "4-sep-2026" to a real Javascript Date
+        const parts = holidaysFilter.split('-');
+        if (parts.length === 3) {
+          const [day, monthStr, yearStr] = parts;
+          const monthMap: Record<string, string> = {
+            jan: "Jan", feb: "Feb", mar: "Mar", apr: "Apr", may: "May", jun: "Jun",
+            jul: "Jul", aug: "Aug", sep: "Sep", oct: "Oct", nov: "Nov", dec: "Dec"
+          };
+          const holidayDate = new Date(`${day} ${monthMap[monthStr.toLowerCase()] || 'Aug'} ${yearStr || '2026'}`);
+          holidayDate.setHours(23, 59, 59, 999);
 
-        // Only show countries where the visa arrives ON or BEFORE the requested holiday date
-        if (cardDate.getTime() > holidayDate.getTime()) return false;
+          // Only show countries where the visa arrives ON or BEFORE the requested holiday date
+          if (cardDate.getTime() > holidayDate.getTime()) return false;
+        }
       }
 
       return true;

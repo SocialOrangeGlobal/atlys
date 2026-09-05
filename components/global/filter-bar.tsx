@@ -4,7 +4,264 @@ import * as React from "react"
 import { ChevronDown } from "lucide-react"
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
 
-type DropdownState = "delivery" | "type" | "documents" | "holidays" | null
+const UPCOMING_HOLIDAYS = [
+  {
+    name: "Janmashtami",
+    dates: "4 - 6th Sep",
+    tag: "Long weekend",
+    dateStr: "4-sep-2026",
+    date: new Date(2026, 8, 4)
+  },
+  {
+    name: "Gandhi Jayanti",
+    dates: "2 - 4th Oct",
+    tag: "Long weekend",
+    dateStr: "2-oct-2026",
+    date: new Date(2026, 9, 2)
+  },
+  {
+    name: "Dussehra Break",
+    dates: "19 - 21st Oct",
+    tag: "Festival break",
+    dateStr: "20-oct-2026",
+    date: new Date(2026, 9, 20)
+  },
+  {
+    name: "Diwali Weekend",
+    dates: "8 - 11th Nov",
+    tag: "Mega holiday",
+    dateStr: "8-nov-2026",
+    date: new Date(2026, 10, 8)
+  }
+]
+
+function parseHolidayDate(str: string): Date | null {
+  if (!str || str === 'all') return null
+  const parts = str.split('-')
+  if (parts.length !== 3) return null
+  const [dayStr, monthStr, yearStr] = parts
+  const monthMap: Record<string, number> = {
+    jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
+    jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11
+  }
+  const m = monthMap[monthStr.toLowerCase()]
+  const d = parseInt(dayStr, 10)
+  const y = parseInt(yearStr, 10)
+  if (m === undefined || isNaN(d) || isNaN(y)) return null
+  return new Date(y, m, d)
+}
+
+function formatHolidayLabel(value: string) {
+  if (!value || value === 'all') return 'Select Dates'
+  const parts = value.split('-')
+  if (parts.length === 3) {
+    const [day, month] = parts
+    const monthNames: Record<string, string> = {
+      jan: 'Jan', feb: 'Feb', mar: 'Mar', apr: 'Apr', may: 'May', jun: 'Jun',
+      jul: 'Jul', aug: 'Aug', sep: 'Sep', oct: 'Oct', nov: 'Nov', dec: 'Dec'
+    }
+    return `Before ${day} ${monthNames[month.toLowerCase()] || month}`
+  }
+  return value
+}
+
+function CalendarDropdown({
+  currentHolidays,
+  onSelect,
+  onClear,
+}: {
+  currentHolidays: string
+  onSelect: (dateStr: string) => void
+  onClear: () => void
+}) {
+  const initialSelected = parseHolidayDate(currentHolidays)
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(initialSelected)
+  const [viewDate, setViewDate] = React.useState<Date>(
+    initialSelected ? new Date(initialSelected.getFullYear(), initialSelected.getMonth(), 1) : new Date(2026, 7, 1)
+  )
+  const [holidayIndex, setHolidayIndex] = React.useState(0)
+
+  // Sync state whenever currentHolidays changes
+  React.useEffect(() => {
+    const parsed = parseHolidayDate(currentHolidays)
+    setSelectedDate(parsed)
+    if (parsed) {
+      setViewDate(new Date(parsed.getFullYear(), parsed.getMonth(), 1))
+    }
+  }, [currentHolidays])
+
+  const nextHoliday = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setHolidayIndex((prev) => (prev + 1) % UPCOMING_HOLIDAYS.length)
+  }
+
+  const prevHoliday = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setHolidayIndex((prev) => (prev - 1 + UPCOMING_HOLIDAYS.length) % UPCOMING_HOLIDAYS.length)
+  }
+
+  const activeHoliday = UPCOMING_HOLIDAYS[holidayIndex]
+
+  const selectHoliday = (hol: typeof UPCOMING_HOLIDAYS[0]) => {
+    setSelectedDate(hol.date)
+    setViewDate(new Date(hol.date.getFullYear(), hol.date.getMonth(), 1))
+    onSelect(hol.dateStr)
+  }
+
+  const nextMonth = () => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1))
+  const prevMonth = () => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1))
+
+  const daysInMonth = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDate()
+  const firstDayIndex = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay() 
+  const startDay = firstDayIndex === 0 ? 6 : firstDayIndex - 1 // Monday start
+
+  const daysInPrevMonth = new Date(viewDate.getFullYear(), viewDate.getMonth(), 0).getDate()
+  
+  const prevDays = Array.from({length: startDay}, (_, i) => daysInPrevMonth - startDay + i + 1)
+  const currentDays = Array.from({length: daysInMonth}, (_, i) => i + 1)
+  const nextDays = Array.from({length: 42 - (prevDays.length + currentDays.length)}, (_, i) => i + 1)
+
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  const monthShortNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+
+  const isSameDate = (d1: Date | null, d2: Date) => {
+    if (!d1) return false
+    return d1.getDate() === d2.getDate() && d1.getMonth() === d2.getMonth() && d1.getFullYear() === d2.getFullYear()
+  }
+
+  const isHolidayDate = (d: Date) => {
+    return UPCOMING_HOLIDAYS.some(h => isSameDate(h.date, d))
+  }
+
+  const handleDateClick = (d: number) => {
+    const thisDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), d)
+    setSelectedDate(thisDate)
+  }
+
+  const handleApply = () => {
+    if (!selectedDate) return
+    const formatted = `${selectedDate.getDate()}-${monthShortNames[selectedDate.getMonth()]}-${selectedDate.getFullYear()}`
+    onSelect(formatted)
+  }
+
+  return (
+    <div className="w-[340px] px-5 py-5 flex flex-col items-center select-none" onClick={(e) => e.stopPropagation()}>
+      <p className="text-sm font-semibold text-center text-neutral-800 mb-3 px-2 leading-tight">
+        Check upcoming holidays and plan your trips around long weekends.
+      </p>
+
+      {/* Upcoming Holiday Banner (Interactive & Clickable) */}
+      <div 
+        onClick={() => selectHoliday(activeHoliday)}
+        className="w-full bg-[#1A1A1A] hover:bg-[#262626] rounded-2xl p-3.5 flex items-center justify-between text-white mb-4 cursor-pointer transition-all shadow-md group"
+        title="Click to apply this holiday"
+      >
+        <button 
+          type="button"
+          onClick={prevHoliday} 
+          className="w-7 h-7 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors shrink-0"
+          title="Previous holiday"
+        >
+          <ChevronDown className="w-4 h-4 rotate-90" />
+        </button>
+        <div className="text-center px-2 flex-1">
+          <p className="text-[10px] font-bold tracking-widest text-[#00d65b] uppercase mb-0.5">✦ {activeHoliday.tag} ✦</p>
+          <p className="text-[13px] font-bold text-white leading-tight group-hover:text-[#5079EA] transition-colors">{activeHoliday.dates}</p>
+          <p className="text-xs text-[#9CA3AF] mt-0.5">{activeHoliday.name}</p>
+        </div>
+        <button 
+          type="button"
+          onClick={nextHoliday} 
+          className="w-7 h-7 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors shrink-0"
+          title="Next holiday"
+        >
+          <ChevronDown className="w-4 h-4 -rotate-90" />
+        </button>
+      </div>
+
+      {/* Dynamic Calendar Header */}
+      <div className="w-full flex items-center justify-between px-2 mb-3">
+        <button type="button" onClick={prevMonth} className="hover:bg-neutral-100 p-1.5 rounded-full transition-colors">
+          <ChevronDown className="w-4 h-4 rotate-90 text-neutral-600" />
+        </button>
+        <span className="text-[15px] font-bold text-black">{monthNames[viewDate.getMonth()]}, {viewDate.getFullYear()}</span>
+        <button type="button" onClick={nextMonth} className="hover:bg-neutral-100 p-1.5 rounded-full transition-colors">
+          <ChevronDown className="w-4 h-4 -rotate-90 text-neutral-600" />
+        </button>
+      </div>
+
+      {/* Days row */}
+      <div className="w-full grid grid-cols-7 gap-1 mb-2 text-center">
+        {['Mo','Tu','We','Th','Fr','Sa','Su'].map(day => (
+          <span key={day} className="text-xs font-semibold text-[#8B939E]">{day}</span>
+        ))}
+      </div>
+
+      {/* Dynamic Dates Grid */}
+      <div className="w-full grid grid-cols-7 gap-y-2 gap-x-1 text-center mb-2">
+        {prevDays.map(d => <span key={`prev-${d}`} className="text-sm font-medium text-neutral-300 py-1">{d}</span>)}
+        {currentDays.map(d => {
+          const thisDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), d);
+          const isSelected = isSameDate(selectedDate, thisDate);
+          const isHol = isHolidayDate(thisDate);
+          return (
+            <button 
+              key={`cur-${d}`} 
+              type="button"
+              onClick={() => handleDateClick(d)}
+              className={`relative text-sm font-semibold rounded-full mx-auto w-8 h-8 flex flex-col items-center justify-center transition-all ${
+                isSelected 
+                  ? 'bg-[#5079EA] text-white shadow-sm font-bold scale-105' 
+                  : isHol
+                    ? 'text-[#5079EA] font-bold hover:bg-blue-50'
+                    : 'text-neutral-700 hover:bg-neutral-100'
+              }`}
+            >
+              <span>{d}</span>
+              {isHol && !isSelected && (
+                <span className="w-1 h-1 rounded-full bg-[#00d65b] -mt-0.5" />
+              )}
+            </button>
+          )
+        })}
+        {nextDays.map(d => <span key={`next-${d}`} className="text-sm font-medium text-neutral-300 py-1">{d}</span>)}
+      </div>
+
+      {/* Footer */}
+      <div className="w-full flex items-center justify-between mt-2 pt-3 border-t border-neutral-100">
+        <div className="flex flex-col">
+          <span className="text-[10px] font-medium text-neutral-500">Guaranteed before:</span>
+          <span className="text-xs font-bold text-black truncate max-w-[140px]">
+            {selectedDate ? `${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()].slice(0,3)}, ${selectedDate.getFullYear()}` : 'Select a date'}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          {currentHolidays !== 'all' && (
+            <button
+              type="button"
+              onClick={onClear}
+              className="text-xs font-bold text-neutral-500 hover:text-red-500 px-2 py-1 transition-colors cursor-pointer"
+            >
+              Clear
+            </button>
+          )}
+          <button 
+            type="button"
+            disabled={!selectedDate}
+            onClick={handleApply}
+            className={`px-5 py-2 rounded-full text-xs font-bold transition-all shadow-sm ${
+              selectedDate 
+                ? 'bg-[#5079EA] text-white hover:bg-[#4068d8] active:scale-95 cursor-pointer' 
+                : 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
+            }`}
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function FilterBar({ tab = 'explore' }: { tab?: string }) {
   const router = useRouter()
@@ -36,8 +293,16 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
     const params = new URLSearchParams(searchParams.toString())
     if (value === "all") {
       params.delete(key)
+      if (key === "documents" || key === "docs") {
+        params.delete("documents")
+        params.delete("docs")
+      }
+      if (key === "holidays") {
+        params.delete("holidays")
+      }
     } else {
       params.set(key, value)
+      if (key === "documents") params.delete("docs")
     }
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
     setActiveDropdown(null)
@@ -45,7 +310,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
 
   const currentDelivery = searchParams.get("delivery") || "all"
   const currentType = searchParams.get("type") || "all"
-  const currentDocs = searchParams.get("docs") || "all"
+  const currentDocs = searchParams.get("documents") || searchParams.get("docs") || "all"
   const currentHolidays = searchParams.get("holidays") || "all"
   const currentCategory = searchParams.get("category") || "all"
 
@@ -53,8 +318,9 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
     const isActive = current === value
     return (
       <button 
+        type="button"
         onClick={() => handleFilter(activeDropdown as string, value)} 
-        className="w-full text-left py-[14px] flex items-center group transition-colors"
+        className="w-full text-left py-[14px] flex items-center group transition-colors cursor-pointer"
       >
         <div className="w-6 h-6 mr-1 flex items-center justify-center shrink-0">
           {isActive && <div className="w-1.5 h-1.5 rounded-full bg-[#5079EA]" />}
@@ -68,117 +334,6 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
           </span>
         )}
       </button>
-    )
-  }
-
-  const CalendarDropdown = () => {
-    // Default to August 2026 for consistency with mock data, or use new Date() for today
-    const [viewDate, setViewDate] = React.useState(new Date(2026, 7, 1)) 
-    const [selectedDate, setSelectedDate] = React.useState<Date | null>(null)
-
-    const nextMonth = () => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1))
-    const prevMonth = () => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1))
-
-    const daysInMonth = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDate()
-    const firstDayIndex = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay() 
-    const startDay = firstDayIndex === 0 ? 6 : firstDayIndex - 1 // Make Monday the first day of the week
-
-    const daysInPrevMonth = new Date(viewDate.getFullYear(), viewDate.getMonth(), 0).getDate()
-    
-    const prevDays = Array.from({length: startDay}, (_, i) => daysInPrevMonth - startDay + i + 1)
-    const currentDays = Array.from({length: daysInMonth}, (_, i) => i + 1)
-    const nextDays = Array.from({length: 42 - (prevDays.length + currentDays.length)}, (_, i) => i + 1)
-
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    const monthShortNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
-
-    const handleSelect = () => {
-      if (!selectedDate) return;
-      // Format as "dd-mmm-yyyy" for the URL
-      const formatted = `${selectedDate.getDate()}-${monthShortNames[selectedDate.getMonth()]}-${selectedDate.getFullYear()}`;
-      handleFilter('holidays', formatted)
-    }
-
-    const isSameDate = (d1: Date | null, d2: Date) => {
-      if (!d1) return false
-      return d1.getDate() === d2.getDate() && d1.getMonth() === d2.getMonth() && d1.getFullYear() === d2.getFullYear()
-    }
-
-    return (
-      <div className="w-[340px] px-5 py-5 flex flex-col items-center">
-        <p className="text-sm font-semibold text-center text-neutral-800 mb-4 px-2 leading-tight">
-          Check upcoming holidays and plan your trips around long weekends.
-        </p>
-
-        {/* Upcoming Holiday Banner */}
-        <div className="w-full bg-[#1A1A1A] rounded-2xl p-4 flex items-center justify-between text-white mb-6">
-          <button className="w-6 h-6 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20">
-            <ChevronDown className="w-4 h-4 rotate-90" />
-          </button>
-          <div className="text-center">
-            <p className="text-[10px] font-bold tracking-widest text-[#9CA3AF] mb-1">+ UPCOMING +</p>
-            <p className="text-[13px] font-bold text-white leading-tight">Long weekend on 4 - 6th Sep</p>
-            <p className="text-xs text-[#9CA3AF]">Janmashtami, 4 Sep</p>
-          </div>
-          <button className="w-6 h-6 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20">
-            <ChevronDown className="w-4 h-4 -rotate-90" />
-          </button>
-        </div>
-
-        {/* Dynamic Calendar Header */}
-        <div className="w-full flex items-center justify-between px-2 mb-4">
-          <button onClick={prevMonth} className="hover:bg-neutral-100 p-1 rounded-full transition-colors"><ChevronDown className="w-4 h-4 rotate-90 text-neutral-600" /></button>
-          <span className="text-[15px] font-bold text-black">{monthNames[viewDate.getMonth()]}, {viewDate.getFullYear()}</span>
-          <button onClick={nextMonth} className="hover:bg-neutral-100 p-1 rounded-full transition-colors"><ChevronDown className="w-4 h-4 -rotate-90 text-neutral-600" /></button>
-        </div>
-
-        {/* Days row */}
-        <div className="w-full grid grid-cols-7 gap-1 mb-2 text-center">
-          {['Mo','Tu','We','Th','Fr','Sa','Su'].map(day => (
-            <span key={day} className="text-xs font-semibold text-[#8B939E]">{day}</span>
-          ))}
-        </div>
-
-        {/* Dynamic Dates Grid */}
-        <div className="w-full grid grid-cols-7 gap-y-2 gap-x-1 text-center mb-2">
-          {prevDays.map(d => <span key={`prev-${d}`} className="text-sm font-medium text-neutral-300 py-1.5">{d}</span>)}
-          {currentDays.map(d => {
-            const thisDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), d);
-            const isSelected = isSameDate(selectedDate, thisDate);
-            return (
-              <button 
-                key={`cur-${d}`} 
-                onClick={() => setSelectedDate(thisDate)}
-                className={`relative text-sm font-semibold rounded-full mx-auto w-8 h-8 flex items-center justify-center transition-all ${
-                  isSelected ? 'border-[1.5px] border-[#5079EA] text-[#5079EA]' : 'text-neutral-700 hover:bg-neutral-100'
-                }`}
-              >
-                {d}
-              </button>
-            )
-          })}
-          {nextDays.map(d => <span key={`next-${d}`} className="text-sm font-medium text-neutral-300 py-1.5">{d}</span>)}
-        </div>
-
-        {/* Footer */}
-        <div className="w-full flex items-center justify-between mt-2 pt-4 border-t border-neutral-100">
-          <div className="flex flex-col">
-            <span className="text-[11px] font-medium text-neutral-500">Guaranteed visas before</span>
-            <span className="text-sm font-bold text-black">
-              {selectedDate ? `${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()].slice(0,3)}, ${selectedDate.getFullYear()}` : 'Select a date'}
-            </span>
-          </div>
-          <button 
-            disabled={!selectedDate}
-            onClick={handleSelect}
-            className={`px-6 py-2.5 rounded-[100px] text-sm font-bold transition-all ${
-              selectedDate ? 'bg-[#98B0FF] text-white hover:bg-[#86a1f8]' : 'bg-[#E5E7EB] text-[#9CA3AF] cursor-not-allowed'
-            }`}
-          >
-            Select
-          </button>
-        </div>
-      </div>
     )
   }
 
@@ -312,6 +467,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
         </div>
 
         {/* Documents */}
+        {/* Documents */}
         <div className="relative hidden lg:block">
           <div onClick={() => toggleDropdown("documents")} className="flex cursor-pointer items-center justify-start gap-3 border-[#D6D9DC] px-4 md:px-10 border-r min-w-32 md:min-w-40 hover:opacity-80 transition-opacity">
             <span className="shrink-0">
@@ -333,7 +489,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
           {/* Dropdown */}
           <div className={`absolute top-[130%] -left-8 w-[240px] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top px-2 py-4 z-50 ${activeDropdown === 'documents' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
             <DropdownItem label="Any Documents" value="all" current={currentDocs} count={151} />
-            <DropdownItem label="Passport Only" value="passport" current={currentDocs} count={18} />
+            <DropdownItem label="Passport Only" value="passport" current={currentDocs} count={7} />
           </div>
         </div>
 
@@ -350,7 +506,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
               <p className="font-inter mb-0.5 text-xs leading-3 font-medium text-[#69727B]">Holidays:</p>
               <span className="flex items-center gap-1.5 mt-1.5">
                 <p className="max-w-[160px] truncate text-sm font-semibold text-black">
-                  {currentHolidays === 'all' ? 'Select Dates' : currentHolidays.replace('-aug', ' Aug')}
+                  {formatHolidayLabel(currentHolidays)}
                 </p>
                 <ChevronDown className="w-4 h-4 text-black" />
               </span>
@@ -358,7 +514,11 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
           </div>
           {/* Dropdown */}
           <div className={`absolute top-[130%] right-0 bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-right z-50 ${activeDropdown === 'holidays' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
-            <CalendarDropdown />
+            <CalendarDropdown 
+              currentHolidays={currentHolidays}
+              onSelect={(dateStr) => handleFilter('holidays', dateStr)}
+              onClear={() => handleFilter('holidays', 'all')}
+            />
           </div>
         </div>
 
