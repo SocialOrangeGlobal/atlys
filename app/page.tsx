@@ -53,15 +53,15 @@ export default async function Home(props: { searchParams: Promise<{ [key: string
                 : "Experience the fastest, most reliable way to get your visa. Smart, streamlined applications with guaranteed on-time delivery."}
             </p>
           </div>
-
-          {/* Main Filter Bar */}
-          <div className="relative w-full max-w-4xl mx-auto flex justify-center z-40 drop-shadow-2xl">
-            <FilterBar tab={tab as string} />
-          </div>
         </section>
 
+        {/* Filter Bar — placed OUTSIDE the hero section to avoid overflow clipping on dropdowns */}
+        <div className="relative z-[60] w-full max-w-4xl mx-auto flex justify-center px-3 sm:px-4 md:px-6 -mt-14 sm:-mt-20 md:-mt-28 mb-8 sm:mb-10 md:mb-12 drop-shadow-2xl">
+          <FilterBar tab={tab as string} />
+        </div>
+
         {/* Bento Grid Section */}
-        <section className="px-4 md:px-6 pb-32 relative z-20 pt-6 sm:pt-10">
+        <section className="px-4 md:px-6 pb-32 relative z-20 pt-4 sm:pt-6 md:pt-8">
           <div className="mx-auto max-w-[1440px]">
             <div className="flex items-center justify-between mb-10">
               <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900">

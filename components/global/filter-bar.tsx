@@ -351,7 +351,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
 
   if (tab === 'events') {
     return (
-      <div className="relative z-40 w-full px-4 sm:px-6 pb-2">
+      <div className="relative z-[60] w-full px-4 sm:px-6 pb-2">
         {/* Desktop: single-row pill */}
         <div className="hidden md:flex items-center justify-center">
           <div className="flex items-center rounded-[100px] border border-[#D6D9DC] bg-white shadow-[0_15px_20px_0_rgba(31,41,55,0.08)] backdrop-blur-xl overflow-hidden">
@@ -414,7 +414,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
   }
 
   return (
-    <div ref={containerRef} className="relative z-40 w-full px-2 sm:px-6 flex flex-col items-center">
+    <div ref={containerRef} className="relative z-[60] w-full px-2 sm:px-6 flex flex-col items-center">
 
       {/* Brand Style Pill (Fits 4 filters cleanly on tablet & desktop, 2 primary filters on mobile) */}
       <div className="flex items-center rounded-[20px] md:rounded-[1000px] border border-[#D6D9DC] bg-white px-2 sm:px-3 md:px-6 lg:px-10 py-2.5 sm:py-3 md:pt-4 md:pb-3.5 shadow-[0_15px_20px_0_rgba(31,41,55,0.08)] w-full sm:w-auto">
@@ -439,7 +439,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
             </div>
           </div>
           {/* Dropdown */}
-          <div className={`absolute top-[130%] left-0 w-[240px] max-w-[90vw] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-left px-2 py-4 z-50 ${activeDropdown === 'delivery' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
+          <div className={`absolute top-[130%] left-0 w-[240px] max-w-[90vw] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-left px-2 py-4 z-[70] ${activeDropdown === 'delivery' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
             <DropdownItem label="Any Time" value="all" current={currentDelivery} count={151} />
             <DropdownItem label="Instant" value="instant" current={currentDelivery} count={2} />
             <DropdownItem label="Within 24 Hours" value="24h" current={currentDelivery} count={4} />
@@ -469,7 +469,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
             </div>
           </div>
           {/* Dropdown */}
-          <div className={`absolute top-[130%] right-0 md:-left-8 md:right-auto w-[240px] max-w-[90vw] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-right md:origin-top-left px-2 py-4 z-50 ${activeDropdown === 'type' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
+          <div className={`absolute top-[130%] right-0 md:-left-8 md:right-auto w-[240px] max-w-[90vw] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-right md:origin-top-left px-2 py-4 z-[70] ${activeDropdown === 'type' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
             <DropdownItem label="All Visa Types" value="all" current={currentType} count={151} />
             <DropdownItem label="E-Visa" value="e-visa" current={currentType} count={135} />
             <DropdownItem label="Sticker" value="sticker" current={currentType} count={16} />
@@ -496,7 +496,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
             </div>
           </div>
           {/* Dropdown */}
-          <div className={`absolute top-[130%] -left-8 w-[240px] max-w-[90vw] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top px-2 py-4 z-50 ${activeDropdown === 'documents' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
+          <div className={`absolute top-[130%] -left-8 w-[240px] max-w-[90vw] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top px-2 py-4 z-[70] ${activeDropdown === 'documents' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
             <DropdownItem label="Any Documents" value="all" current={currentDocs} count={151} />
             <DropdownItem label="Passport Only" value="passport" current={currentDocs} count={7} />
           </div>
@@ -522,7 +522,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
             </div>
           </div>
           {/* Dropdown */}
-          <div className={`absolute top-[130%] right-0 bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-right z-50 ${activeDropdown === 'holidays' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
+          <div className={`absolute top-[130%] right-0 bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-right z-[70] ${activeDropdown === 'holidays' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
             <CalendarDropdown
               currentHolidays={currentHolidays}
               onSelect={(dateStr) => handleFilter('holidays', dateStr)}
