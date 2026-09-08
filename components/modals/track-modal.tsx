@@ -96,13 +96,27 @@ export function TrackApplicationModal({
 
   const currentStepIdx = result ? getStepIndex(result.status) : 0
 
+  // Prevent background page from scrolling when modal is open
+  React.useEffect(() => {
+    if (isOpen) {
+      const prevOverflow = document.body.style.overflow
+      document.body.style.overflow = "hidden"
+      return () => {
+        document.body.style.overflow = prevOverflow
+      }
+    }
+  }, [isOpen])
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[500px] max-h-[85vh] sm:max-h-[90vh] flex flex-col p-0 border border-neutral-200/90 shadow-[0_24px_80px_rgba(0,0,0,0.22)] rounded-[28px] sm:rounded-[32px] overflow-hidden bg-white">
+      <DialogContent className="sm:max-w-[500px] w-[92vw] max-h-[85vh] sm:max-h-[88vh] flex flex-col p-0 border border-neutral-200/90 shadow-[0_24px_80px_rgba(0,0,0,0.22)] rounded-[28px] sm:rounded-[32px] overflow-hidden bg-white">
         {/* Accent Bar */}
         <div className="h-1.5 w-full shrink-0 bg-gradient-to-r from-[#4F46E5] via-[#00d65b] to-[#4F46E5]" />
 
-        <div className="p-6 sm:p-8 overflow-y-auto overscroll-contain flex-1">
+        <div 
+          className="p-6 sm:p-8 overflow-y-auto overscroll-contain flex-1 min-h-0 custom-scrollbar pr-5 sm:pr-7 mr-1 my-1"
+          onWheel={(e) => e.stopPropagation()}
+        >
           <DialogHeader className="mb-6 text-left">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EEF2FF] text-[#4F46E5] text-[11px] font-bold tracking-wider uppercase mb-2 w-max">
               <ShieldCheck className="w-3.5 h-3.5" /> Live Status Tracker

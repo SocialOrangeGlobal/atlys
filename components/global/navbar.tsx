@@ -79,12 +79,8 @@ function NavbarContent() {
           setIsHidden(false)
         }
       } else {
-        // On home page, hide when scrolling down, show when scrolling up
-        if (currentScrollY > lastScrollY && currentScrollY > 200) {
-          setIsHidden(true)
-        } else {
-          setIsHidden(false)
-        }
+        // On home page, keep navbar visible at all times, smoothly transitioning to compact frosted pill
+        setIsHidden(false)
       }
       lastScrollY = currentScrollY
     }

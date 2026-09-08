@@ -268,15 +268,29 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
   const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null)
   const containerRef = React.useRef<HTMLDivElement>(null)
 
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside, scrolling, or pressing Escape
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setActiveDropdown(null)
       }
     }
+    const handleScroll = () => {
+      setActiveDropdown(null)
+    }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveDropdown(null)
+      }
+    }
     document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("keydown", handleKeyDown)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("keydown", handleKeyDown)
+    }
   }, [])
 
   const toggleDropdown = (id: string) => {
