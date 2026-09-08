@@ -107,12 +107,12 @@ export function SignInModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[440px] p-0 border border-neutral-200/90 shadow-[0_24px_80px_rgba(0,0,0,0.22)] rounded-[28px] sm:rounded-[32px] overflow-hidden bg-white">
+      <DialogContent className="sm:max-w-[440px] max-h-[85vh] sm:max-h-[90vh] flex flex-col p-0 border border-neutral-200/90 shadow-[0_24px_80px_rgba(0,0,0,0.22)] rounded-[28px] sm:rounded-[32px] overflow-hidden bg-white">
         
         {/* Top Gradient Accent Bar */}
-        <div className="h-1.5 w-full bg-gradient-to-r from-[#4F46E5] via-[#9333EA] to-[#00d65b]" />
+        <div className="h-1.5 w-full shrink-0 bg-gradient-to-r from-[#4F46E5] via-[#9333EA] to-[#00d65b]" />
 
-        <div className="p-6 sm:p-8">
+        <div className="p-6 sm:p-8 overflow-y-auto overscroll-contain flex-1">
           
           {/* Header with Logo */}
           <DialogHeader className="flex flex-col items-center text-center mb-6">
