@@ -37,7 +37,7 @@ export function EventsGrid() {
 
   return (
     <div className="w-full relative py-10">
-      
+
       {/* Total Events Counter */}
       <div className="flex items-center justify-center gap-2 mb-20 text-[28px] md:text-[32px]">
         <span className="font-medium text-black">2026</span>
@@ -52,16 +52,16 @@ export function EventsGrid() {
       <div className="flex flex-col gap-24 md:pl-[60px] md:pr-12">
         {Object.entries(groupedByMonth).map(([month, events]) => (
           <div key={month} className="relative flex flex-col md:flex-row items-start">
-            
+
             {/* Timeline Node & Month Label */}
             <div className="w-full md:w-auto flex items-center md:absolute md:left-0 md:-translate-x-1/2 mb-6 md:mb-0 z-10">
               {/* Line connector from left edge of screen to label */}
               <div className="hidden md:block absolute right-full top-1/2 w-screen h-[1px] bg-neutral-200" />
-              
+
               <div className="px-5 py-1.5 rounded-full bg-black text-white text-[10px] font-bold tracking-widest shadow-md shrink-0 relative z-20">
                 {month}
               </div>
-              
+
               {/* Active red connector to cards */}
               <div className="hidden md:block w-[40px] h-[1px] bg-red-600 relative z-20" />
             </div>
@@ -77,7 +77,7 @@ export function EventsGrid() {
           </div>
         ))}
       </div>
-      
+
     </div>
   )
 }

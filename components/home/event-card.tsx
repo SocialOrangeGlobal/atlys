@@ -22,12 +22,12 @@ export function EventCard({ event }: EventCardProps) {
     <Link href={`/events/${event.slug}`} className="flex flex-col gap-4 w-full group cursor-pointer">
       {/* Main Card */}
       <div className="relative w-full h-[460px] rounded-[32px] overflow-hidden shadow-sm transition-all duration-500 ease-out hover:shadow-md border border-black/5 bg-neutral-100 contain-paint will-change-transform">
-        
+
         {/* Background Image */}
-        <Image 
-          src={event.image} 
-          alt={event.title} 
-          fill 
+        <Image
+          src={event.image}
+          alt={event.title}
+          fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
@@ -37,10 +37,10 @@ export function EventCard({ event }: EventCardProps) {
 
         {/* Content Overlay */}
         <div className="absolute inset-0 flex flex-col justify-end p-6 pb-8 text-center items-center z-10">
-          
+
           {/* Flag (Mocked with Circle for now) */}
           <div className="w-5 h-5 rounded-full overflow-hidden mb-3 border border-white shadow-sm shrink-0 bg-neutral-200">
-             <img src={`https://flagcdn.com/w40/${event.countryCode}.png`} alt={event.country} className="w-full h-full object-cover" />
+            <img src={`https://flagcdn.com/w40/${event.countryCode}.png`} alt={event.country} className="w-full h-full object-cover" />
           </div>
 
           <p className="text-[13px] font-bold text-white mb-1">Get {event.country} visa for</p>
@@ -48,7 +48,7 @@ export function EventCard({ event }: EventCardProps) {
             {event.title}
           </h3>
           <p className="text-[13px] font-bold text-white/90 mb-6">Starting from {event.dateDisplay}</p>
-          
+
           <div className="px-5 py-2.5">
             <p className="text-[11px] font-extrabold text-white tracking-widest uppercase">
               Get Visa {event.daysBeforeVisa} Days Before Event
@@ -61,11 +61,11 @@ export function EventCard({ event }: EventCardProps) {
       <div className="flex items-center justify-center gap-3 px-4 pt-1">
         <div className="flex -space-x-2">
           {event.avatars.map((avatar, idx) => (
-            <img 
-              key={idx} 
-              src={avatar} 
-              alt="User" 
-              className="w-6 h-6 rounded-full border-2 border-white shadow-sm z-10" 
+            <img
+              key={idx}
+              src={avatar}
+              alt="User"
+              className="w-6 h-6 rounded-full border-2 border-white shadow-sm z-10"
               style={{ zIndex: 10 - idx }}
             />
           ))}

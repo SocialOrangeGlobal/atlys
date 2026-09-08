@@ -112,14 +112,14 @@ function CalendarDropdown({
   const prevMonth = () => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1))
 
   const daysInMonth = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDate()
-  const firstDayIndex = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay() 
+  const firstDayIndex = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay()
   const startDay = firstDayIndex === 0 ? 6 : firstDayIndex - 1 // Monday start
 
   const daysInPrevMonth = new Date(viewDate.getFullYear(), viewDate.getMonth(), 0).getDate()
-  
-  const prevDays = Array.from({length: startDay}, (_, i) => daysInPrevMonth - startDay + i + 1)
-  const currentDays = Array.from({length: daysInMonth}, (_, i) => i + 1)
-  const nextDays = Array.from({length: 42 - (prevDays.length + currentDays.length)}, (_, i) => i + 1)
+
+  const prevDays = Array.from({ length: startDay }, (_, i) => daysInPrevMonth - startDay + i + 1)
+  const currentDays = Array.from({ length: daysInMonth }, (_, i) => i + 1)
+  const nextDays = Array.from({ length: 42 - (prevDays.length + currentDays.length) }, (_, i) => i + 1)
 
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   const monthShortNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
@@ -145,20 +145,20 @@ function CalendarDropdown({
   }
 
   return (
-    <div className="w-[340px] px-5 py-5 flex flex-col items-center select-none" onClick={(e) => e.stopPropagation()}>
+    <div className="w-[92vw] max-w-[340px] px-4 sm:px-5 py-4 sm:py-5 flex flex-col items-center select-none" onClick={(e) => e.stopPropagation()}>
       <p className="text-sm font-semibold text-center text-neutral-800 mb-3 px-2 leading-tight">
         Check upcoming holidays and plan your trips around long weekends.
       </p>
 
       {/* Upcoming Holiday Banner (Interactive & Clickable) */}
-      <div 
+      <div
         onClick={() => selectHoliday(activeHoliday)}
         className="w-full bg-[#1A1A1A] hover:bg-[#262626] rounded-2xl p-3.5 flex items-center justify-between text-white mb-4 cursor-pointer transition-all shadow-md group"
         title="Click to apply this holiday"
       >
-        <button 
+        <button
           type="button"
-          onClick={prevHoliday} 
+          onClick={prevHoliday}
           className="w-7 h-7 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors shrink-0"
           title="Previous holiday"
         >
@@ -169,9 +169,9 @@ function CalendarDropdown({
           <p className="text-[13px] font-bold text-white leading-tight group-hover:text-[#5079EA] transition-colors">{activeHoliday.dates}</p>
           <p className="text-xs text-[#9CA3AF] mt-0.5">{activeHoliday.name}</p>
         </div>
-        <button 
+        <button
           type="button"
-          onClick={nextHoliday} 
+          onClick={nextHoliday}
           className="w-7 h-7 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors shrink-0"
           title="Next holiday"
         >
@@ -192,7 +192,7 @@ function CalendarDropdown({
 
       {/* Days row */}
       <div className="w-full grid grid-cols-7 gap-1 mb-2 text-center">
-        {['Mo','Tu','We','Th','Fr','Sa','Su'].map(day => (
+        {['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map(day => (
           <span key={day} className="text-xs font-semibold text-[#8B939E]">{day}</span>
         ))}
       </div>
@@ -205,17 +205,16 @@ function CalendarDropdown({
           const isSelected = isSameDate(selectedDate, thisDate);
           const isHol = isHolidayDate(thisDate);
           return (
-            <button 
-              key={`cur-${d}`} 
+            <button
+              key={`cur-${d}`}
               type="button"
               onClick={() => handleDateClick(d)}
-              className={`relative text-sm font-semibold rounded-full mx-auto w-8 h-8 flex flex-col items-center justify-center transition-all ${
-                isSelected 
-                  ? 'bg-[#5079EA] text-white shadow-sm font-bold scale-105' 
+              className={`relative text-sm font-semibold rounded-full mx-auto w-8 h-8 flex flex-col items-center justify-center transition-all ${isSelected
+                  ? 'bg-[#5079EA] text-white shadow-sm font-bold scale-105'
                   : isHol
                     ? 'text-[#5079EA] font-bold hover:bg-blue-50'
                     : 'text-neutral-700 hover:bg-neutral-100'
-              }`}
+                }`}
             >
               <span>{d}</span>
               {isHol && !isSelected && (
@@ -232,7 +231,7 @@ function CalendarDropdown({
         <div className="flex flex-col">
           <span className="text-[10px] font-medium text-neutral-500">Guaranteed before:</span>
           <span className="text-xs font-bold text-black truncate max-w-[140px]">
-            {selectedDate ? `${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()].slice(0,3)}, ${selectedDate.getFullYear()}` : 'Select a date'}
+            {selectedDate ? `${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()].slice(0, 3)}, ${selectedDate.getFullYear()}` : 'Select a date'}
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -245,15 +244,14 @@ function CalendarDropdown({
               Clear
             </button>
           )}
-          <button 
+          <button
             type="button"
             disabled={!selectedDate}
             onClick={handleApply}
-            className={`px-5 py-2 rounded-full text-xs font-bold transition-all shadow-sm ${
-              selectedDate 
-                ? 'bg-[#5079EA] text-white hover:bg-[#4068d8] active:scale-95 cursor-pointer' 
+            className={`px-5 py-2 rounded-full text-xs font-bold transition-all shadow-sm ${selectedDate
+                ? 'bg-[#5079EA] text-white hover:bg-[#4068d8] active:scale-95 cursor-pointer'
                 : 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
-            }`}
+              }`}
           >
             Apply
           </button>
@@ -317,9 +315,9 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
   const DropdownItem = ({ label, value, current, count }: { label: string, value: string, current: string, count?: number }) => {
     const isActive = current === value
     return (
-      <button 
+      <button
         type="button"
-        onClick={() => handleFilter(activeDropdown as string, value)} 
+        onClick={() => handleFilter(activeDropdown as string, value)}
         className="w-full text-left py-[14px] flex items-center group transition-colors cursor-pointer"
       >
         <div className="w-6 h-6 mr-1 flex items-center justify-center shrink-0">
@@ -355,15 +353,14 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
                 <div key={cat.id} className="flex items-center h-full">
                   <button
                     onClick={() => handleFilter('category', cat.id)}
-                    className={`px-6 lg:px-8 py-4 lg:py-5 text-[14px] transition-all flex items-center gap-2 border-b-[3px] whitespace-nowrap ${
-                      isActive ? 'font-bold text-neutral-900 border-black pt-[19px]' : 'font-medium text-neutral-500 hover:text-neutral-900 bg-transparent border-transparent pt-[19px]'
-                    }`}
+                    className={`px-6 lg:px-8 py-4 lg:py-5 text-[14px] transition-all flex items-center gap-2 border-b-[3px] whitespace-nowrap ${isActive ? 'font-bold text-neutral-900 border-black pt-[19px]' : 'font-medium text-neutral-500 hover:text-neutral-900 bg-transparent border-transparent pt-[19px]'
+                      }`}
                   >
-                    {cat.id === 'all' && (<div className="w-5 h-5 bg-black rounded-full text-white flex items-center justify-center shadow-sm shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h4v4H4z"/><path d="M16 4h4v4h-4z"/><path d="M4 16h4v4H4z"/><path d="M16 16h4v4h-4z"/></svg></div>)}
-                    {cat.id === 'music' && (<div className="w-5 h-5 bg-[#FF4F81] rounded-full flex items-center justify-center text-white shadow-sm shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>)}
-                    {cat.id === 'sports' && (<div className="w-5 h-5 bg-[#00D65B] rounded-full flex items-center justify-center text-white shadow-sm shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>)}
-                    {cat.id === 'art' && (<div className="w-5 h-5 bg-[#FF8A00] rounded-full flex items-center justify-center text-white shadow-sm shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>)}
-                    {cat.id === 'business' && (<div className="w-5 h-5 bg-[#4F46E5] rounded-full flex items-center justify-center text-white shadow-sm shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>)}
+                    {cat.id === 'all' && (<div className="w-5 h-5 bg-black rounded-full text-white flex items-center justify-center shadow-sm shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h4v4H4z" /><path d="M16 4h4v4h-4z" /><path d="M4 16h4v4H4z" /><path d="M16 16h4v4h-4z" /></svg></div>)}
+                    {cat.id === 'music' && (<div className="w-5 h-5 bg-[#FF4F81] rounded-full flex items-center justify-center text-white shadow-sm shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg></div>)}
+                    {cat.id === 'sports' && (<div className="w-5 h-5 bg-[#00D65B] rounded-full flex items-center justify-center text-white shadow-sm shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg></div>)}
+                    {cat.id === 'art' && (<div className="w-5 h-5 bg-[#FF8A00] rounded-full flex items-center justify-center text-white shadow-sm shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg></div>)}
+                    {cat.id === 'business' && (<div className="w-5 h-5 bg-[#4F46E5] rounded-full flex items-center justify-center text-white shadow-sm shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /></svg></div>)}
                     {cat.label}
                   </button>
                   {idx < 4 && <div className="w-[1px] h-6 bg-neutral-200" />}
@@ -387,11 +384,10 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
               <button
                 key={cat.id}
                 onClick={() => handleFilter('category', cat.id)}
-                className={`flex items-center gap-1.5 px-4 py-2.5 rounded-full text-[13px] font-semibold transition-all border ${
-                  isActive
+                className={`flex items-center gap-1.5 px-4 py-2.5 rounded-full text-[13px] font-semibold transition-all border ${isActive
                     ? 'bg-neutral-900 text-white border-neutral-900 shadow-md'
                     : 'bg-white text-neutral-600 border-neutral-200 hover:border-neutral-400'
-                }`}
+                  }`}
               >
                 <div className={`w-2 h-2 rounded-full ${isActive ? 'bg-white' : cat.color}`} />
                 {cat.label}
@@ -404,14 +400,14 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
   }
 
   return (
-    <div ref={containerRef} className="relative z-40 w-full px-2 sm:px-6 flex justify-center">
-      
-      {/* Brand Style Pill */}
-      <div className="flex items-center rounded-[20px] md:rounded-[1000px] border border-[#D6D9DC] bg-white px-2 sm:px-3 md:px-10 py-2.5 sm:py-3 md:pt-4 md:pb-3.5 shadow-[0_15px_20px_0_rgba(31,41,55,0.08)] w-full sm:w-auto">
-        
+    <div ref={containerRef} className="relative z-40 w-full px-2 sm:px-6 flex flex-col items-center">
+
+      {/* Brand Style Pill (Fits 4 filters cleanly on tablet & desktop, 2 primary filters on mobile) */}
+      <div className="flex items-center rounded-[20px] md:rounded-[1000px] border border-[#D6D9DC] bg-white px-2 sm:px-3 md:px-6 lg:px-10 py-2.5 sm:py-3 md:pt-4 md:pb-3.5 shadow-[0_15px_20px_0_rgba(31,41,55,0.08)] w-full sm:w-auto">
+
         {/* Visa Delivery */}
         <div className="relative flex-1 sm:flex-none">
-          <div onClick={() => toggleDropdown("delivery")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] pr-3 md:px-10 md:pl-0 border-r hover:opacity-80 transition-opacity">
+          <div onClick={() => toggleDropdown("delivery")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] pr-2.5 sm:pr-3 md:px-4 lg:px-8 md:pl-0 border-r hover:opacity-80 transition-opacity">
             <span className="shrink-0">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <circle cx="11" cy="11" r="11" fill="#35CC6D"></circle>
@@ -429,7 +425,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
             </div>
           </div>
           {/* Dropdown */}
-          <div className={`absolute top-[130%] left-0 w-[240px] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-left px-2 py-4 z-50 ${activeDropdown === 'delivery' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
+          <div className={`absolute top-[130%] left-0 w-[240px] max-w-[90vw] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-left px-2 py-4 z-50 ${activeDropdown === 'delivery' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
             <DropdownItem label="Any Time" value="all" current={currentDelivery} count={151} />
             <DropdownItem label="Instant" value="instant" current={currentDelivery} count={2} />
             <DropdownItem label="Within 24 Hours" value="24h" current={currentDelivery} count={4} />
@@ -441,7 +437,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
 
         {/* Visa Type */}
         <div className="relative flex-1 sm:flex-none">
-          <div onClick={() => toggleDropdown("type")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] pl-3 md:px-10 border-r-0 lg:border-r hover:opacity-80 transition-opacity">
+          <div onClick={() => toggleDropdown("type")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] pl-2.5 sm:pl-3 md:px-4 lg:px-8 border-r-0 md:border-r hover:opacity-80 transition-opacity">
             <span className="shrink-0">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <circle cx="11" cy="11" r="11" fill="#5079EA"></circle>
@@ -459,17 +455,16 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
             </div>
           </div>
           {/* Dropdown */}
-          <div className={`absolute top-[130%] right-0 md:-left-8 md:right-auto w-[240px] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-right md:origin-top-left px-2 py-4 z-50 ${activeDropdown === 'type' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
+          <div className={`absolute top-[130%] right-0 md:-left-8 md:right-auto w-[240px] max-w-[90vw] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-right md:origin-top-left px-2 py-4 z-50 ${activeDropdown === 'type' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
             <DropdownItem label="All Visa Types" value="all" current={currentType} count={151} />
             <DropdownItem label="E-Visa" value="e-visa" current={currentType} count={135} />
             <DropdownItem label="Sticker" value="sticker" current={currentType} count={16} />
           </div>
         </div>
 
-        {/* Documents */}
-        {/* Documents */}
-        <div className="relative hidden lg:block">
-          <div onClick={() => toggleDropdown("documents")} className="flex cursor-pointer items-center justify-start gap-3 border-[#D6D9DC] px-4 md:px-10 border-r min-w-32 md:min-w-40 hover:opacity-80 transition-opacity">
+        {/* Documents (Available on tablet & desktop) */}
+        <div className="relative hidden md:block">
+          <div onClick={() => toggleDropdown("documents")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] px-3 md:px-4 lg:px-8 border-r min-w-28 md:min-w-32 lg:min-w-40 hover:opacity-80 transition-opacity">
             <span className="shrink-0">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <circle cx="11" cy="11" r="11" fill="#EAA250"></circle>
@@ -477,9 +472,9 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
               </svg>
             </span>
             <div>
-              <p className="font-inter mb-0.5 text-xs leading-3 font-medium text-[#69727B]">Documents:</p>
-              <span className="flex items-center gap-1.5 mt-1.5">
-                <p className="max-w-[160px] truncate text-sm font-semibold text-black">
+              <p className="font-inter mb-0.5 text-[10px] sm:text-xs leading-3 font-medium text-[#69727B]">Documents:</p>
+              <span className="flex items-center gap-1 mt-1.5">
+                <p className="max-w-[120px] lg:max-w-[160px] truncate text-[12px] sm:text-sm font-semibold text-black">
                   {currentDocs === 'all' ? 'Any Documents' : 'Passport Only'}
                 </p>
                 <ChevronDown className="w-4 h-4 text-black" />
@@ -487,15 +482,15 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
             </div>
           </div>
           {/* Dropdown */}
-          <div className={`absolute top-[130%] -left-8 w-[240px] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top px-2 py-4 z-50 ${activeDropdown === 'documents' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
+          <div className={`absolute top-[130%] -left-8 w-[240px] max-w-[90vw] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top px-2 py-4 z-50 ${activeDropdown === 'documents' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
             <DropdownItem label="Any Documents" value="all" current={currentDocs} count={151} />
             <DropdownItem label="Passport Only" value="passport" current={currentDocs} count={7} />
           </div>
         </div>
 
-        {/* Holidays */}
-        <div className="relative hidden lg:block">
-          <div onClick={() => toggleDropdown("holidays")} className="flex cursor-pointer items-center justify-start gap-3 border-[#D6D9DC] px-4 md:px-10 border-r-0 min-w-32 md:min-w-40 hover:opacity-80 transition-opacity">
+        {/* Holidays (Available on tablet & desktop) */}
+        <div className="relative hidden md:block">
+          <div onClick={() => toggleDropdown("holidays")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] px-3 md:px-4 lg:px-8 border-r-0 min-w-28 md:min-w-32 lg:min-w-40 hover:opacity-80 transition-opacity">
             <span className="shrink-0">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <circle cx="11" cy="11" r="11" fill="#EA5083"></circle>
@@ -503,9 +498,9 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
               </svg>
             </span>
             <div>
-              <p className="font-inter mb-0.5 text-xs leading-3 font-medium text-[#69727B]">Holidays:</p>
-              <span className="flex items-center gap-1.5 mt-1.5">
-                <p className="max-w-[160px] truncate text-sm font-semibold text-black">
+              <p className="font-inter mb-0.5 text-[10px] sm:text-xs leading-3 font-medium text-[#69727B]">Holidays:</p>
+              <span className="flex items-center gap-1 mt-1.5">
+                <p className="max-w-[120px] lg:max-w-[160px] truncate text-[12px] sm:text-sm font-semibold text-black">
                   {formatHolidayLabel(currentHolidays)}
                 </p>
                 <ChevronDown className="w-4 h-4 text-black" />
@@ -514,7 +509,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
           </div>
           {/* Dropdown */}
           <div className={`absolute top-[130%] right-0 bg-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] rounded-[28px] overflow-hidden transition-all duration-300 origin-top-right z-50 ${activeDropdown === 'holidays' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
-            <CalendarDropdown 
+            <CalendarDropdown
               currentHolidays={currentHolidays}
               onSelect={(dateStr) => handleFilter('holidays', dateStr)}
               onClear={() => handleFilter('holidays', 'all')}
@@ -523,6 +518,55 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
         </div>
 
       </div>
+
+      {/* Mobile Secondary Quick Filters for Documents & Holidays (< md) */}
+      <div className="flex md:hidden items-center justify-center gap-2 mt-2.5 w-full">
+        {/* Documents Quick Filter Chip */}
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => toggleDropdown("documents")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold shadow-xs backdrop-blur-md transition-all active:scale-95 ${
+              currentDocs !== 'all'
+                ? 'bg-neutral-900 text-white border-neutral-900'
+                : 'bg-white/90 text-neutral-700 border-neutral-200/90 hover:bg-white'
+            }`}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#EAA250]" />
+            <span>Docs: {currentDocs === 'all' ? 'Any' : 'Passport Only'}</span>
+            <ChevronDown className="w-3 h-3 text-current opacity-70" />
+          </button>
+          <div className={`absolute top-[125%] left-0 w-[220px] max-w-[85vw] bg-white shadow-[0_16px_36px_rgba(0,0,0,0.15)] rounded-[24px] overflow-hidden transition-all duration-300 origin-top-left px-2 py-3 z-50 ${activeDropdown === 'documents' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
+            <DropdownItem label="Any Documents" value="all" current={currentDocs} count={151} />
+            <DropdownItem label="Passport Only" value="passport" current={currentDocs} count={7} />
+          </div>
+        </div>
+
+        {/* Holidays Quick Filter Chip */}
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => toggleDropdown("holidays")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold shadow-xs backdrop-blur-md transition-all active:scale-95 ${
+              currentHolidays !== 'all'
+                ? 'bg-neutral-900 text-white border-neutral-900'
+                : 'bg-white/90 text-neutral-700 border-neutral-200/90 hover:bg-white'
+            }`}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#EA5083]" />
+            <span className="truncate max-w-[120px]">{currentHolidays === 'all' ? 'Holidays' : formatHolidayLabel(currentHolidays)}</span>
+            <ChevronDown className="w-3 h-3 text-current opacity-70" />
+          </button>
+          <div className={`absolute top-[125%] right-0 bg-white shadow-[0_20px_40px_rgba(0,0,0,0.2)] rounded-[28px] overflow-hidden transition-all duration-300 z-50 ${activeDropdown === 'holidays' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
+            <CalendarDropdown
+              currentHolidays={currentHolidays}
+              onSelect={(dateStr) => handleFilter('holidays', dateStr)}
+              onClear={() => handleFilter('holidays', 'all')}
+            />
+          </div>
+        </div>
+      </div>
+
     </div>
   )
 }

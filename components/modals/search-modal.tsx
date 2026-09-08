@@ -2,16 +2,16 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { 
-  Search, 
-  X, 
-  Clock, 
-  Sparkles, 
-  MapPin, 
-  Calendar, 
-  ArrowRight, 
-  Zap, 
-  TrendingUp, 
+import {
+  Search,
+  X,
+  Clock,
+  Sparkles,
+  MapPin,
+  Calendar,
+  ArrowRight,
+  Zap,
+  TrendingUp,
   Compass,
   History
 } from "lucide-react"
@@ -97,9 +97,9 @@ export function SearchModal({
   const filteredVisas = React.useMemo(() => {
     if (activeCategory === "events") return []
     const cleanQuery = query.toLowerCase().trim()
-    
+
     return CARDS.filter((card) => {
-      const matchesText = !cleanQuery || 
+      const matchesText = !cleanQuery ||
         card.name.toLowerCase().includes(cleanQuery) ||
         card.slug.toLowerCase().includes(cleanQuery) ||
         card.type.toLowerCase().includes(cleanQuery) ||
@@ -182,14 +182,14 @@ export function SearchModal({
   return (
     <div className="fixed inset-0 z-[200] flex items-end sm:items-start justify-center sm:pt-14 md:pt-20 sm:px-4">
       {/* Backdrop */}
-      <div 
+      <div
         onClick={() => setIsOpen(false)}
         className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-300 animate-in fade-in-0"
       />
 
       {/* Modal Dialog Card (Full screen sheet on mobile, rounded card on tablet/desktop) */}
       <div className="relative w-full h-[92vh] sm:h-auto sm:max-h-[85vh] sm:max-w-2xl bg-white sm:bg-white/95 sm:backdrop-blur-2xl rounded-t-[28px] sm:rounded-[32px] border border-neutral-200/90 shadow-[0_24px_70px_rgba(0,0,0,0.3)] overflow-hidden z-10 flex flex-col transition-all duration-300 animate-in slide-in-from-bottom-6 sm:zoom-in-95 sm:fade-in-0">
-        
+
         {/* Top Glowing Gradient Accent Bar */}
         <div className="h-1.5 w-full bg-gradient-to-r from-[#4F46E5] via-[#9333EA] to-[#00d65b] shrink-0" />
 
@@ -242,43 +242,39 @@ export function SearchModal({
         <div className="flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-6 py-2 sm:py-2.5 bg-neutral-50/90 border-b border-neutral-100 overflow-x-auto no-scrollbar text-xs font-bold shrink-0">
           <button
             onClick={() => setActiveCategory("all")}
-            className={`px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${
-              activeCategory === "all"
+            className={`px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${activeCategory === "all"
                 ? "bg-neutral-900 text-white shadow-sm"
                 : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
-            }`}
+              }`}
           >
             All Results
           </button>
           <button
             onClick={() => setActiveCategory("visas")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${
-              activeCategory === "visas"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${activeCategory === "visas"
                 ? "bg-[#4F46E5] text-white shadow-sm"
                 : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
-            }`}
+              }`}
           >
             <Compass className="w-3.5 h-3.5" />
             <span>Visas</span>
           </button>
           <button
             onClick={() => setActiveCategory("fast")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${
-              activeCategory === "fast"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${activeCategory === "fast"
                 ? "bg-[#00d65b] text-white shadow-sm"
                 : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
-            }`}
+              }`}
           >
             <Zap className="w-3.5 h-3.5" />
             <span>Fast (24-48h)</span>
           </button>
           <button
             onClick={() => setActiveCategory("events")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${
-              activeCategory === "events"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${activeCategory === "events"
                 ? "bg-[#9333EA] text-white shadow-sm"
                 : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
-            }`}
+              }`}
           >
             <Calendar className="w-3.5 h-3.5" />
             <span>Events</span>
@@ -287,11 +283,11 @@ export function SearchModal({
 
         {/* Modal Body / Results Area */}
         <div className="overflow-y-auto p-3.5 sm:p-6 space-y-5 flex-1 overscroll-contain">
-          
+
           {/* STATE 1: Empty Query State (Trending + Recent) */}
           {!query.trim() && (
             <div className="space-y-5 sm:space-y-6">
-              
+
               {/* Recent Searches */}
               {recentSearches.length > 0 && (
                 <div>
@@ -300,7 +296,7 @@ export function SearchModal({
                       <History className="w-3.5 h-3.5" />
                       <span>Recent Searches</span>
                     </div>
-                    <button 
+                    <button
                       onClick={clearRecentSearches}
                       className="text-[11px] font-semibold text-neutral-400 hover:text-red-500 transition-colors"
                     >
@@ -341,10 +337,10 @@ export function SearchModal({
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
                         <div className="w-6 h-6 rounded-full overflow-hidden shrink-0 border border-neutral-200 shadow-sm bg-neutral-100 flex items-center justify-center">
-                          <img 
-                            src={`https://flagcdn.com/w40/${dest.code}.png`} 
+                          <img
+                            src={`https://flagcdn.com/w40/${dest.code}.png`}
                             alt={`${dest.name} flag`}
-                            className="w-full h-full object-cover" 
+                            className="w-full h-full object-cover"
                           />
                         </div>
                         <div className="min-w-0">
@@ -387,7 +383,7 @@ export function SearchModal({
           {/* STATE 2: Active Results List */}
           {query.trim() && totalResultsCount > 0 && (
             <div className="space-y-4">
-              
+
               {/* Visas Section */}
               {filteredVisas.length > 0 && (
                 <div>
@@ -403,18 +399,17 @@ export function SearchModal({
                           key={visa.slug}
                           onClick={() => handleSelectVisa(visa.slug, visa.name)}
                           onMouseEnter={() => setSelectedIndex(idx)}
-                          className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl transition-all text-left active:scale-[0.98] ${
-                            isSelected 
-                              ? "bg-[#4F46E5]/10 border border-[#4F46E5]/30 shadow-sm" 
+                          className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl transition-all text-left active:scale-[0.98] ${isSelected
+                              ? "bg-[#4F46E5]/10 border border-[#4F46E5]/30 shadow-sm"
                               : "bg-white hover:bg-neutral-50 border border-neutral-200/70"
-                          }`}
+                            }`}
                         >
                           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
                             <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden shrink-0 border border-neutral-200 shadow-sm bg-neutral-100 flex items-center justify-center">
-                              <img 
-                                src={`https://flagcdn.com/w40/${visa.code}.png`} 
+                              <img
+                                src={`https://flagcdn.com/w40/${visa.code}.png`}
                                 alt={`${visa.name} flag`}
-                                className="w-full h-full object-cover" 
+                                className="w-full h-full object-cover"
                               />
                             </div>
                             <div className="min-w-0 flex-1">
@@ -445,9 +440,8 @@ export function SearchModal({
                                 {visa.fees}
                               </span>
                             )}
-                            <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center transition-colors shrink-0 ${
-                              isSelected ? "bg-[#4F46E5] text-white" : "bg-neutral-100 text-neutral-400"
-                            }`}>
+                            <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center transition-colors shrink-0 ${isSelected ? "bg-[#4F46E5] text-white" : "bg-neutral-100 text-neutral-400"
+                              }`}>
                               <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                             </div>
                           </div>
@@ -473,18 +467,17 @@ export function SearchModal({
                           key={event.slug}
                           onClick={() => handleSelectEvent(event.slug, event.title)}
                           onMouseEnter={() => setSelectedIndex(absoluteIdx)}
-                          className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl transition-all text-left active:scale-[0.98] ${
-                            isSelected 
-                              ? "bg-[#9333EA]/10 border border-[#9333EA]/30 shadow-sm" 
+                          className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl transition-all text-left active:scale-[0.98] ${isSelected
+                              ? "bg-[#9333EA]/10 border border-[#9333EA]/30 shadow-sm"
                               : "bg-white hover:bg-neutral-50 border border-neutral-200/70"
-                          }`}
+                            }`}
                         >
                           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
                             <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden shrink-0 border border-neutral-200 shadow-sm bg-neutral-100 flex items-center justify-center">
-                              <img 
-                                src={`https://flagcdn.com/w40/${event.countryCode}.png`} 
+                              <img
+                                src={`https://flagcdn.com/w40/${event.countryCode}.png`}
                                 alt={`${event.country} flag`}
-                                className="w-full h-full object-cover" 
+                                className="w-full h-full object-cover"
                               />
                             </div>
                             <div className="min-w-0 flex-1">
@@ -506,9 +499,8 @@ export function SearchModal({
                             <span className="hidden xs:inline-block text-[9px] sm:text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">
                               {event.category}
                             </span>
-                            <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center transition-colors shrink-0 ${
-                              isSelected ? "bg-[#9333EA] text-white" : "bg-neutral-100 text-neutral-400"
-                            }`}>
+                            <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center transition-colors shrink-0 ${isSelected ? "bg-[#9333EA] text-white" : "bg-neutral-100 text-neutral-400"
+                              }`}>
                               <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                             </div>
                           </div>

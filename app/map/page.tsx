@@ -1,8 +1,7 @@
 "use client"
 
-import React from "react"
 import Link from "next/link"
-import { ArrowLeft, Globe, MapPin } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import dynamic from "next/dynamic"
 
 // Dynamically import the leaflet map with ssr: false

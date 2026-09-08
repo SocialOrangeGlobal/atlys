@@ -62,12 +62,12 @@ export function CountrySelectorModal({
             </div>
           ) : (
             <div>
-               <p className="text-caption text-neutral-body mb-4 uppercase tracking-wider font-semibold">
+              <p className="text-caption text-neutral-body mb-4 uppercase tracking-wider font-semibold">
                 Search Results
               </p>
               {/* Dummy results for demonstration */}
               <div className="space-y-2">
-                 <button
+                <button
                   onClick={() => onSelect(search)}
                   className="w-full text-left px-4 py-3 rounded-xl bg-white border border-border-subtle text-body font-medium hover:border-brand-primary hover:text-brand-primary transition-all shadow-sm flex items-center gap-3"
                 >

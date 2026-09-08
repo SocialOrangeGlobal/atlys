@@ -5,25 +5,24 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 
-export const CountryCard = ({ 
-  card, 
+export const CountryCard = ({
+  card,
   idx = 0,
-  inModal = false 
-}: { 
-  card: any, 
+  inModal = false
+}: {
+  card: any,
   idx?: number,
-  inModal?: boolean 
+  inModal?: boolean
 }) => {
   const [isLoaded, setIsLoaded] = React.useState(false)
 
   return (
-    <Link 
-      href={`/visa/${card.slug}`} 
-      className={`group relative flex flex-col justify-end w-full h-[380px] sm:h-[400px] rounded-[28px] sm:rounded-[32px] overflow-hidden transition-all duration-500 ease-out bg-neutral-900 contain-paint will-change-transform ${
-        inModal 
-          ? "shadow-none" 
+    <Link
+      href={`/visa/${card.slug}`}
+      className={`group relative flex flex-col justify-end w-full h-[380px] sm:h-[400px] rounded-[28px] sm:rounded-[32px] overflow-hidden transition-all duration-500 ease-out bg-neutral-900 contain-paint will-change-transform ${inModal
+          ? "shadow-none"
           : "shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] hover:-translate-y-1.5"
-      }`}
+        }`}
     >
       {/* Skeleton Pulse with Loader */}
       {!isLoaded && (
@@ -46,7 +45,7 @@ export const CountryCard = ({
         onLoad={() => setIsLoaded(true)}
         className={`object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
       />
-      
+
       {/* Gradient Overlays */}
       <div className={`absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90 transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} />
 
@@ -95,7 +94,7 @@ export const CountryCard = ({
               {card.guaranteedDate || "3-5 Business Days"}
             </span>
           </div>
-          
+
           <div className="px-3.5 sm:px-4 py-1.5 rounded-full bg-[#4F46E5] text-white text-[11px] sm:text-xs font-bold transition-all duration-300 shadow-md group-hover:shadow-[0_0_15px_rgba(79,70,229,0.7)] group-hover:scale-105 group-hover:bg-[#4338CA] flex items-center gap-1 shrink-0">
             <span>Apply</span>
             <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />

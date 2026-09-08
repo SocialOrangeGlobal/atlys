@@ -12,7 +12,7 @@ import { X, Globe2, Compass } from "lucide-react"
 // Create a custom icon function for the flag pins
 const createFlagIcon = (cardCode: string, isActive: boolean) => {
   const size = isActive ? 48 : 38;
-  
+
   const html = `
     <div style="width: ${size}px; height: ${size}px; border-radius: 50%; overflow: hidden; border: 2.5px solid ${isActive ? '#00d65b' : 'white'}; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; transform: ${isActive ? 'scale(1.1)' : 'scale(1)'}; pointer-events: none;">
       <img src="https://flagcdn.com/w80/${cardCode.toLowerCase()}.png" style="width: 100%; height: 100%; object-fit: cover;" />
@@ -41,9 +41,9 @@ export default function LeafletMap() {
 
   return (
     <div className="relative w-full h-full select-none">
-      <MapContainer 
-        center={[20, 0]} 
-        zoom={3} 
+      <MapContainer
+        center={[20, 0]}
+        zoom={3}
         style={{ width: '100%', height: '100%', zIndex: 10 }}
         zoomControl={false}
         minZoom={2}
@@ -60,14 +60,14 @@ export default function LeafletMap() {
         {CARDS.map((card) => {
           const coord = countryCoordinates[card.code] || [0, 0];
           const position: [number, number] = [coord[1], coord[0]];
-          
+
           if (coord[0] === 0 && coord[1] === 0) return null;
 
           const isActive = activeCard === card.slug;
 
           return (
-            <Marker 
-              key={card.slug} 
+            <Marker
+              key={card.slug}
               position={position}
               icon={createFlagIcon(card.code, isActive)}
               eventHandlers={{
@@ -82,7 +82,7 @@ export default function LeafletMap() {
       </MapContainer>
 
       {/* Global blur overlay behind the popup but above the map */}
-      <div 
+      <div
         className={`absolute inset-0 bg-black/30 backdrop-blur-[3px] z-30 transition-opacity duration-300 ${activeCard ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setActiveCard(null)}
       />
@@ -95,7 +95,7 @@ export default function LeafletMap() {
 
         return (
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] w-[calc(100vw-32px)] max-w-[340px] pointer-events-auto animate-in zoom-in-95 duration-200">
-            <button 
+            <button
               onClick={() => setActiveCard(null)}
               className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 z-[70] p-2 bg-white/95 backdrop-blur-md border border-neutral-200 shadow-xl rounded-full text-neutral-900 hover:bg-neutral-100 transition-all hover:scale-110 active:scale-95"
               aria-label="Close details"

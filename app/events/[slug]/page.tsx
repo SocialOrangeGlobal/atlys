@@ -48,9 +48,9 @@ export default function EventVisaPage() {
         const containerWidth = scrollContainerRef.current.offsetWidth
         const elLeft = activeEl.getBoundingClientRect().left
         const elWidth = activeEl.offsetWidth
-        
+
         const scrollPos = scrollContainerRef.current.scrollLeft + (elLeft - containerLeft) - (containerWidth / 2) + (elWidth / 2)
-        
+
         scrollContainerRef.current.scrollTo({
           left: scrollPos,
           behavior: 'smooth'
@@ -144,11 +144,10 @@ export default function EventVisaPage() {
                 key={item.id}
                 href={`#${item.id}`}
                 data-id={item.id}
-                className={`text-xs sm:text-sm h-full flex items-center whitespace-nowrap shrink-0 transition-colors ${
-                  activeSection === item.id 
-                    ? "font-bold text-[#4F46E5] border-b-2 border-[#4F46E5]" 
+                className={`text-xs sm:text-sm h-full flex items-center whitespace-nowrap shrink-0 transition-colors ${activeSection === item.id
+                    ? "font-bold text-[#4F46E5] border-b-2 border-[#4F46E5]"
                     : "font-medium text-neutral-500 hover:text-black"
-                }`}
+                  }`}
               >
                 {item.label}
               </a>

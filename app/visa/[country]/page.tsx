@@ -5,7 +5,7 @@ import { Footer } from "@/components/global/footer"
 import Image from "next/image"
 import { CARDS } from "@/lib/data"
 import { notFound, useParams } from "next/navigation"
-import { Check, Clock, ShieldCheck, Zap, FileText, Star, ArrowRight, Users, Globe2, ChevronRight, Sparkles, BadgeCheck } from "lucide-react"
+import { Check, Clock, ShieldCheck, Zap, FileText, Star, ArrowRight, Users, Globe2, ChevronRight, Sparkles, BadgeCheck, Plus, Minus } from "lucide-react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { SignInModal } from "@/components/modals/sign-in-modal"
@@ -74,6 +74,16 @@ export default function VisaPage() {
   const displayName = country.name.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ')
 
   const [isSignInOpen, setIsSignInOpen] = React.useState(false)
+  const [travellers, setTravellers] = React.useState(1)
+  const [isExpress, setIsExpress] = React.useState(false)
+
+  const rawFee = country.fees ? parseInt(country.fees.replace(/[^\d]/g, ""), 10) : 0
+  const govtFee = rawFee > 0 ? Math.round(rawFee * 0.72) : 0
+  const serviceFee = rawFee > 0 ? Math.round(rawFee * 0.28) : 999
+  const expressFee = isExpress ? 999 : 0
+  const totalPerPerson = govtFee + serviceFee + expressFee
+  const totalFee = totalPerPerson * travellers
+  const formattedTotal = totalFee > 0 ? `₹${totalFee.toLocaleString("en-IN")}` : "Free"
 
   const { scrollYProgress } = useScroll()
   const heroScale = useTransform(scrollYProgress, [0, 0.15], [1.05, 1.2])
@@ -107,9 +117,9 @@ export default function VisaPage() {
         const containerWidth = scrollContainerRef.current.offsetWidth
         const elLeft = activeEl.getBoundingClientRect().left
         const elWidth = activeEl.offsetWidth
-        
+
         const scrollPos = scrollContainerRef.current.scrollLeft + (elLeft - containerLeft) - (containerWidth / 2) + (elWidth / 2)
-        
+
         scrollContainerRef.current.scrollTo({
           left: scrollPos,
           behavior: 'smooth'
@@ -246,11 +256,10 @@ export default function VisaPage() {
                 key={item.id}
                 data-id={item.id}
                 href={`#${item.id}`}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-bold transition-all duration-300 whitespace-nowrap ${
-                  activeSection === item.id
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-bold transition-all duration-300 whitespace-nowrap ${activeSection === item.id
                     ? "bg-neutral-900 text-white shadow-sm"
                     : "text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100"
-                }`}
+                  }`}
               >
                 {item.label}
               </a>
@@ -259,8 +268,8 @@ export default function VisaPage() {
 
           <div className="flex items-center gap-3 shrink-0">
             <div className="hidden md:flex flex-col text-right pr-1">
-              <span className="text-[10px] uppercase font-bold text-neutral-400 leading-tight">Total Price</span>
-              <span className="text-sm font-extrabold text-neutral-900 leading-tight">{country.fees || "₹2,500"}</span>
+              <span className="text-[10px] uppercase font-bold text-neutral-400 leading-tight">Total Price ({travellers} {travellers > 1 ? "Applicants" : "Applicant"})</span>
+              <span className="text-sm font-extrabold text-[#4F46E5] leading-tight">{formattedTotal}</span>
             </div>
             <button
               type="button"
@@ -291,7 +300,7 @@ export default function VisaPage() {
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Global Getaway Card */}
+            {/* Global Getaway Card with Dynamic Pricing Calculator */}
             <FadeIn delay={0.1}>
               <div className="relative bg-white rounded-[32px] border-2 border-[#4F46E5]/20 p-8 shadow-[0_0_0_1px_rgba(79,70,229,0.05),0_20px_60px_-10px_rgba(79,70,229,0.1)] hover:shadow-[0_0_0_1px_rgba(79,70,229,0.1),0_30px_80px_-10px_rgba(79,70,229,0.15)] transition-all duration-500 group">
                 {/* Recommended badge */}
@@ -299,43 +308,104 @@ export default function VisaPage() {
                   <BadgeCheck className="w-3.5 h-3.5" /> Recommended
                 </div>
 
-                <div className="flex items-center gap-3 mb-8 mt-2">
-                  <div className="w-10 h-10 rounded-xl bg-[#4F46E5] flex items-center justify-center text-white font-extrabold text-sm shadow-md">GG</div>
-                  <div>
-                    <h3 className="font-extrabold text-lg text-neutral-900">Global Getaway</h3>
-                    <p className="text-xs text-neutral-500 font-medium">Official visa partner</p>
+                <div className="flex items-center justify-between mb-6 mt-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#4F46E5] flex items-center justify-center text-white font-extrabold text-sm shadow-md">GG</div>
+                    <div>
+                      <h3 className="font-extrabold text-lg text-neutral-900">Global Getaway</h3>
+                      <p className="text-xs text-neutral-500 font-medium">Official visa partner</p>
+                    </div>
+                  </div>
+                  <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#ecfdf5] text-[#00d65b] text-xs font-bold">
+                    <ShieldCheck className="w-3.5 h-3.5" /> On-time Guarantee
                   </div>
                 </div>
 
-                <div className="space-y-5">
-                  <div className="flex items-center justify-between py-3 border-b border-neutral-100">
-                    <span className="text-sm text-neutral-500 font-medium">Visa price</span>
-                    <span className="font-extrabold text-xl text-neutral-900">{country.fees || "Free"}</span>
+                <div className="space-y-4">
+                  {/* Travellers Selector */}
+                  <div className="flex items-center justify-between py-2.5 border-b border-neutral-100">
+                    <div className="flex items-center gap-2">
+                      <Users className="w-4 h-4 text-neutral-400" />
+                      <span className="text-sm text-neutral-700 font-bold">Applicants</span>
+                    </div>
+                    <div className="flex items-center gap-3 bg-neutral-100/80 p-1 rounded-full border border-neutral-200/80">
+                      <button
+                        type="button"
+                        onClick={() => setTravellers(Math.max(1, travellers - 1))}
+                        className="w-7 h-7 rounded-full bg-white text-neutral-700 hover:bg-neutral-200 flex items-center justify-center transition-colors shadow-xs cursor-pointer active:scale-90"
+                      >
+                        <Minus className="w-3.5 h-3.5" />
+                      </button>
+                      <span className="text-sm font-black text-neutral-900 w-4 text-center">{travellers}</span>
+                      <button
+                        type="button"
+                        onClick={() => setTravellers(travellers + 1)}
+                        className="w-7 h-7 rounded-full bg-white text-neutral-700 hover:bg-neutral-200 flex items-center justify-center transition-colors shadow-xs cursor-pointer active:scale-90"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between py-3 border-b border-neutral-100">
-                    <span className="text-sm text-neutral-500 font-medium">Processing time</span>
-                    <span className="font-extrabold text-[#00d65b] flex items-center gap-1.5"><Zap className="w-4 h-4" /> 2 Days</span>
+
+                  {/* Processing Speed Toggle */}
+                  <div className="flex items-center justify-between py-2.5 border-b border-neutral-100">
+                    <div>
+                      <span className="text-sm text-neutral-700 font-bold block">Processing Speed</span>
+                      <span className="text-[11px] text-neutral-400 font-medium">{isExpress ? "Express 24-hr turnaround" : "Standard 48-hr turnaround"}</span>
+                    </div>
+                    <div className="flex items-center bg-neutral-100 p-1 rounded-full text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setIsExpress(false)}
+                        className={`px-3 py-1 rounded-full transition-all cursor-pointer ${!isExpress ? "bg-white text-neutral-900 shadow-xs" : "text-neutral-500"}`}
+                      >
+                        Standard
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setIsExpress(true)}
+                        className={`px-3 py-1 rounded-full transition-all flex items-center gap-1 cursor-pointer ${isExpress ? "bg-[#4F46E5] text-white shadow-xs" : "text-neutral-500 hover:text-neutral-800"}`}
+                      >
+                        <Zap className="w-3 h-3" /> Express
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between py-3 border-b border-neutral-100">
-                    <span className="text-sm text-neutral-500 font-medium">Max stay</span>
-                    <span className="font-extrabold">30 Days</span>
-                  </div>
-                  <div className="flex items-center justify-between py-3 border-b border-neutral-100">
-                    <span className="text-sm text-neutral-500 font-medium">Validity</span>
-                    <span className="font-extrabold">{country.valid || "90 Days"}</span>
-                  </div>
-                  <div className="flex items-center justify-between py-3">
-                    <span className="text-sm text-neutral-500 font-medium">Guarantee</span>
-                    <span className="font-extrabold text-[#00d65b] flex items-center gap-1.5"><ShieldCheck className="w-4 h-4" /> On-time</span>
+
+                  {/* Itemized Breakdown */}
+                  <div className="py-2 space-y-2 text-xs">
+                    <div className="flex justify-between text-neutral-500">
+                      <span>Government Visa Fee ({travellers}x)</span>
+                      <span className="font-semibold text-neutral-800">{govtFee > 0 ? `₹${(govtFee * travellers).toLocaleString("en-IN")}` : "Free / On Arrival"}</span>
+                    </div>
+                    <div className="flex justify-between text-neutral-500">
+                      <span>Global Getaway Service Fee</span>
+                      <span className="font-semibold text-neutral-800">₹{(serviceFee * travellers).toLocaleString("en-IN")}</span>
+                    </div>
+                    {isExpress && (
+                      <div className="flex justify-between text-[#4F46E5] font-semibold">
+                        <span>Express Priority Fee</span>
+                        <span>₹{(expressFee * travellers).toLocaleString("en-IN")}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between items-baseline pt-3 border-t border-neutral-100">
+                      <div>
+                        <span className="text-sm font-extrabold text-neutral-900 block">Total Amount</span>
+                        <span className="text-[11px] text-[#00d65b] font-bold">Includes on-time delivery guarantee</span>
+                      </div>
+                      <span className="text-2xl font-black text-[#4F46E5]">{formattedTotal}</span>
+                    </div>
                   </div>
                 </div>
 
                 <motion.button
+                  type="button"
+                  onClick={() => setIsSignInOpen(true)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-[#4F46E5] hover:bg-[#4338ca] text-white font-bold rounded-2xl py-4 mt-8 transition-colors shadow-lg shadow-[#4F46E5]/20"
+                  className="w-full bg-[#4F46E5] hover:bg-[#4338ca] text-white font-bold rounded-2xl py-4 mt-6 transition-colors shadow-lg shadow-[#4F46E5]/20 cursor-pointer flex items-center justify-center gap-2"
                 >
-                  Start Application
+                  <span>Start Application ({travellers} {travellers > 1 ? "Applicants" : "Applicant"})</span>
+                  <ArrowRight className="w-4 h-4" />
                 </motion.button>
               </div>
             </FadeIn>
@@ -588,7 +658,7 @@ export default function VisaPage() {
           <section className="relative bg-neutral-900 rounded-[48px] p-12 md:p-16 overflow-hidden text-white">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#4F46E5]/40 via-transparent to-transparent pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-[#00d65b]/20 via-transparent to-transparent pointer-events-none" />
-            
+
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="flex-1">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Ready to get your {displayName} visa?</h2>
