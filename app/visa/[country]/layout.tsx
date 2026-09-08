@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `Apply for ${countryName} Visa Online — Fast & Guaranteed`,
-    description: `Get your ${countryName} visa on time, guaranteed with Global Getaway. 99.8% approval rate, real-time tracking, and simple document upload.`,
+    description: `Get your ${countryName} visa on time, guaranteed with Global Gateway. 99.8% approval rate, real-time tracking, and simple document upload.`,
   }
 }
 

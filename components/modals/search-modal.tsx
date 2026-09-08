@@ -243,8 +243,8 @@ export function SearchModal({
           <button
             onClick={() => setActiveCategory("all")}
             className={`px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${activeCategory === "all"
-                ? "bg-neutral-900 text-white shadow-sm"
-                : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
+              ? "bg-neutral-900 text-white shadow-sm"
+              : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
               }`}
           >
             All Results
@@ -252,8 +252,8 @@ export function SearchModal({
           <button
             onClick={() => setActiveCategory("visas")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${activeCategory === "visas"
-                ? "bg-[#4F46E5] text-white shadow-sm"
-                : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
+              ? "bg-[#4F46E5] text-white shadow-sm"
+              : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
               }`}
           >
             <Compass className="w-3.5 h-3.5" />
@@ -262,8 +262,8 @@ export function SearchModal({
           <button
             onClick={() => setActiveCategory("fast")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${activeCategory === "fast"
-                ? "bg-[#00d65b] text-white shadow-sm"
-                : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
+              ? "bg-[#00d65b] text-white shadow-sm"
+              : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
               }`}
           >
             <Zap className="w-3.5 h-3.5" />
@@ -272,8 +272,8 @@ export function SearchModal({
           <button
             onClick={() => setActiveCategory("events")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all whitespace-nowrap shrink-0 ${activeCategory === "events"
-                ? "bg-[#9333EA] text-white shadow-sm"
-                : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
+              ? "bg-[#9333EA] text-white shadow-sm"
+              : "bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80"
               }`}
           >
             <Calendar className="w-3.5 h-3.5" />
@@ -361,14 +361,14 @@ export function SearchModal({
                 </div>
               </div>
 
-              {/* Global Getaway Guarantee Badge */}
+              {/* Global Gateway Guarantee Badge */}
               <div className="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-[#4F46E5]/5 via-[#9333EA]/5 to-[#00d65b]/5 border border-[#4F46E5]/15 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                   <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-[#4F46E5] shrink-0">
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs font-bold text-neutral-900 truncate">Global Getaway Guarantee</div>
+                    <div className="text-xs font-bold text-neutral-900 truncate">Global Gateway Guarantee</div>
                     <div className="text-[11px] text-neutral-500 truncate">Visas on time or 100% money back</div>
                   </div>
                 </div>
@@ -400,8 +400,8 @@ export function SearchModal({
                           onClick={() => handleSelectVisa(visa.slug, visa.name)}
                           onMouseEnter={() => setSelectedIndex(idx)}
                           className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl transition-all text-left active:scale-[0.98] ${isSelected
-                              ? "bg-[#4F46E5]/10 border border-[#4F46E5]/30 shadow-sm"
-                              : "bg-white hover:bg-neutral-50 border border-neutral-200/70"
+                            ? "bg-[#4F46E5]/10 border border-[#4F46E5]/30 shadow-sm"
+                            : "bg-white hover:bg-neutral-50 border border-neutral-200/70"
                             }`}
                         >
                           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
@@ -468,8 +468,8 @@ export function SearchModal({
                           onClick={() => handleSelectEvent(event.slug, event.title)}
                           onMouseEnter={() => setSelectedIndex(absoluteIdx)}
                           className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl transition-all text-left active:scale-[0.98] ${isSelected
-                              ? "bg-[#9333EA]/10 border border-[#9333EA]/30 shadow-sm"
-                              : "bg-white hover:bg-neutral-50 border border-neutral-200/70"
+                            ? "bg-[#9333EA]/10 border border-[#9333EA]/30 shadow-sm"
+                            : "bg-white hover:bg-neutral-50 border border-neutral-200/70"
                             }`}
                         >
                           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
@@ -551,7 +551,7 @@ export function SearchModal({
             Tap any destination to view visa
           </span>
           <span className="font-extrabold tracking-wider bg-gradient-to-r from-[#4F46E5] to-[#00d65b] bg-clip-text text-transparent uppercase">
-            GLOBAL GETAWAY
+            Global Gateway
           </span>
         </div>
 

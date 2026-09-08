@@ -257,8 +257,8 @@ export default function VisaPage() {
                 data-id={item.id}
                 href={`#${item.id}`}
                 className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-bold transition-all duration-300 whitespace-nowrap ${activeSection === item.id
-                    ? "bg-neutral-900 text-white shadow-sm"
-                    : "text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100"
+                  ? "bg-neutral-900 text-white shadow-sm"
+                  : "text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100"
                   }`}
               >
                 {item.label}
@@ -292,7 +292,7 @@ export default function VisaPage() {
           <FadeIn>
             <div className="text-center mb-16">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EEF2FF] text-[#4F46E5] text-[11px] font-bold tracking-widest uppercase mb-4">
-                <Sparkles className="w-3.5 h-3.5" /> Why Global Getaway
+                <Sparkles className="w-3.5 h-3.5" /> Why Global Gateway
               </span>
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-neutral-900 mb-4">Visa Information</h2>
               <p className="text-lg text-neutral-500 font-medium max-w-2xl mx-auto">Clear, transparent pricing. No hidden fees, no surprises.</p>
@@ -300,7 +300,7 @@ export default function VisaPage() {
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Global Getaway Card with Dynamic Pricing Calculator */}
+            {/* Global Gateway Card with Dynamic Pricing Calculator */}
             <FadeIn delay={0.1}>
               <div className="relative bg-white rounded-[32px] border-2 border-[#4F46E5]/20 p-8 shadow-[0_0_0_1px_rgba(79,70,229,0.05),0_20px_60px_-10px_rgba(79,70,229,0.1)] hover:shadow-[0_0_0_1px_rgba(79,70,229,0.1),0_30px_80px_-10px_rgba(79,70,229,0.15)] transition-all duration-500 group">
                 {/* Recommended badge */}
@@ -312,7 +312,7 @@ export default function VisaPage() {
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-[#4F46E5] flex items-center justify-center text-white font-extrabold text-sm shadow-md">GG</div>
                     <div>
-                      <h3 className="font-extrabold text-lg text-neutral-900">Global Getaway</h3>
+                      <h3 className="font-extrabold text-lg text-neutral-900">Global Gateway</h3>
                       <p className="text-xs text-neutral-500 font-medium">Official visa partner</p>
                     </div>
                   </div>
@@ -378,7 +378,7 @@ export default function VisaPage() {
                       <span className="font-semibold text-neutral-800">{govtFee > 0 ? `₹${(govtFee * travellers).toLocaleString("en-IN")}` : "Free / On Arrival"}</span>
                     </div>
                     <div className="flex justify-between text-neutral-500">
-                      <span>Global Getaway Service Fee</span>
+                      <span>Global Gateway Service Fee</span>
                       <span className="font-semibold text-neutral-800">₹{(serviceFee * travellers).toLocaleString("en-IN")}</span>
                     </div>
                     {isExpress && (
@@ -662,7 +662,7 @@ export default function VisaPage() {
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="flex-1">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Ready to get your {displayName} visa?</h2>
-                <p className="text-neutral-400 text-lg font-medium max-w-lg">Join 2M+ travellers who trust Global Getaway for their visa applications. Get started in under 2 minutes.</p>
+                <p className="text-neutral-400 text-lg font-medium max-w-lg">Join 2M+ travellers who trust Global Gateway for their visa applications. Get started in under 2 minutes.</p>
               </div>
               <motion.button
                 type="button"
@@ -697,11 +697,11 @@ export default function VisaPage() {
                 {[
                   {
                     q: `Do Indians need a visa for ${displayName}?`,
-                    a: `Yes, Indian passport holders need a valid e-Visa to enter ${displayName}. You can apply easily through Global Getaway and receive your approved visa via email.`
+                    a: `Yes, Indian passport holders need a valid e-Visa to enter ${displayName}. You can apply easily through Global Gateway and receive your approved visa via email.`
                   },
                   {
                     q: `How long does the ${displayName} visa take?`,
-                    a: `With Global Getaway, your visa is typically approved within 2 business days. During peak season, it may take up to 3 business days.`
+                    a: `With Global Gateway, your visa is typically approved within 2 business days. During peak season, it may take up to 3 business days.`
                   },
                   {
                     q: `What is the validity of the ${displayName} e-Visa?`,
@@ -713,11 +713,11 @@ export default function VisaPage() {
                   },
                   {
                     q: `Can I track my ${displayName} visa application status?`,
-                    a: `Yes! Global Getaway provides real-time tracking for all applications. You'll receive notifications at every step via email and SMS.`
+                    a: `Yes! Global Gateway provides real-time tracking for all applications. You'll receive notifications at every step via email and SMS.`
                   },
                   {
                     q: `What happens if my visa gets rejected?`,
-                    a: `Global Getaway has a 99.8% approval rate. In the rare case of rejection, we offer a full refund of our service fee.`
+                    a: `Global Gateway has a 99.8% approval rate. In the rare case of rejection, we offer a full refund of our service fee.`
                   },
                   {
                     q: `Is emergency processing available?`,

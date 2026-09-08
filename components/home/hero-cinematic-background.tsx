@@ -10,7 +10,7 @@ const EXPLORE_VIDEOS = [
     src: "/videos/18662635-hd_1920_1080_60fps.mp4",
   },
   {
-    title: "Tropical Coastal Getaways",
+    title: "Tropical Coastal gateways",
     src: "/videos/11110914-hd_1920_1080_30fps.mp4",
   },
   {

@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${eventTitle} — Event Visa Guide`,
-    description: `Fast and guaranteed visa processing for ${eventTitle} with Global Getaway.`,
+    description: `Fast and guaranteed visa processing for ${eventTitle} with Global Gateway.`,
   }
 }
 

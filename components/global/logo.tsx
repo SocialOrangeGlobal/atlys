@@ -19,7 +19,7 @@ export function Logo({
           GLOBAL
         </span>
 
-        {/* GETAWAY Container */}
+        {/* gateway Container */}
         <div className="relative inline-flex flex-col">
           {/* Top Line + Aeroplane Container (Left-to-Right Flight) */}
           <div className="absolute -top-[12px] sm:-top-[16px] left-1 sm:left-2 right-[-14px] sm:right-[-18px] flex items-center gap-1 pointer-events-none">
@@ -38,9 +38,9 @@ export function Logo({
             </div>
           </div>
 
-          {/* GETAWAY (Multi-Color Gradient Text) */}
+          {/* gateway (Multi-Color Gradient Text) */}
           <span className="text-[15px] xs:text-[17px] sm:text-[20px] md:text-[22px] font-black tracking-tighter uppercase bg-gradient-to-r from-[#4F46E5] via-[#9333EA] to-[#00d65b] bg-clip-text text-transparent">
-            GETAWAY
+            gateway
           </span>
         </div>
       </div>

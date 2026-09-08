@@ -113,7 +113,7 @@ export function TrackApplicationModal({
         {/* Accent Bar */}
         <div className="h-1.5 w-full shrink-0 bg-gradient-to-r from-[#4F46E5] via-[#00d65b] to-[#4F46E5]" />
 
-        <div 
+        <div
           className="p-6 sm:p-8 overflow-y-auto overscroll-contain flex-1 min-h-0 custom-scrollbar pr-5 sm:pr-7 mr-1 my-1"
           onWheel={(e) => e.stopPropagation()}
         >
@@ -125,7 +125,7 @@ export function TrackApplicationModal({
               Track Visa Application
             </DialogTitle>
             <DialogDescription className="text-xs sm:text-sm font-medium text-neutral-500">
-              Enter your Global Getaway reference ID or passport number to check real-time status.
+              Enter your Global Gateway reference ID or passport number to check real-time status.
             </DialogDescription>
           </DialogHeader>
 

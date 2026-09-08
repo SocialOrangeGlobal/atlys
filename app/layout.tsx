@@ -8,14 +8,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://global-getaway-new.vercel.app"),
+  metadataBase: new URL("https://global-gateway-new.vercel.app"),
   title: {
-    default: "Global Getaway | Visas Made Simple — Guaranteed On-Time",
-    template: "%s | Global Getaway",
+    default: "Global Gateway | Visas Made Simple — Guaranteed On-Time",
+    template: "%s | Global Gateway",
   },
   description: "Experience the fastest, most reliable way to get your visa. Smart, streamlined applications with 99.8% approval and guaranteed on-time delivery.",
   keywords: [
-    "Global Getaway",
+    "Global Gateway",
     "visa",
     "e-visa",
     "tourist visa",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     "Thailand visa",
     "Schengen visa"
   ],
-  authors: [{ name: "Global Getaway" }],
-  creator: "Global Getaway",
-  publisher: "Global Getaway",
+  authors: [{ name: "Global Gateway" }],
+  creator: "Global Gateway",
+  publisher: "Global Gateway",
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://global-getaway-new.vercel.app",
-    siteName: "Global Getaway",
-    title: "Global Getaway | Visas Made Simple — Guaranteed On-Time",
+    url: "https://global-gateway-new.vercel.app",
+    siteName: "Global Gateway",
+    title: "Global Gateway | Visas Made Simple — Guaranteed On-Time",
     description: "Experience the fastest, most reliable way to get your visa online. Smart, streamlined applications with guaranteed on-time delivery.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Global Getaway | Visas Made Simple",
+    title: "Global Gateway | Visas Made Simple",
     description: "Experience the fastest, most reliable way to get your visa online with guaranteed on-time delivery.",
   },
 };

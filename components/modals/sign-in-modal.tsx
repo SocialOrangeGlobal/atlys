@@ -119,15 +119,15 @@ export function SignInModal({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-[440px] w-[92vw] max-h-[85vh] sm:max-h-[88vh] flex flex-col p-0 border border-neutral-200/90 shadow-[0_24px_80px_rgba(0,0,0,0.22)] rounded-[28px] sm:rounded-[32px] overflow-hidden bg-white">
-        
+
         {/* Top Gradient Accent Bar */}
         <div className="h-1.5 w-full shrink-0 bg-gradient-to-r from-[#4F46E5] via-[#9333EA] to-[#00d65b]" />
 
-        <div 
+        <div
           className="p-6 sm:p-8 overflow-y-auto overscroll-contain flex-1 min-h-0 custom-scrollbar pr-5 sm:pr-7 mr-1 my-1"
           onWheel={(e) => e.stopPropagation()}
         >
-          
+
           {/* Header with Logo */}
           <DialogHeader className="flex flex-col items-center text-center mb-6">
             <div className="mb-3">
@@ -140,8 +140,8 @@ export function SignInModal({
                   {tab === "signin" ? "Welcome back" : "Create an account"}
                 </DialogTitle>
                 <DialogDescription className="text-xs sm:text-sm font-medium text-neutral-500 mt-1">
-                  {tab === "signin" 
-                    ? "Enter your mobile number to sign in" 
+                  {tab === "signin"
+                    ? "Enter your mobile number to sign in"
                     : "Get guaranteed on-time visa processing"}
                 </DialogDescription>
               </>
@@ -176,7 +176,7 @@ export function SignInModal({
                   Verified Successfully!
                 </DialogTitle>
                 <DialogDescription className="text-xs sm:text-sm font-medium text-neutral-500 mt-1">
-                  Welcome to Global Getaway. Redirecting your dashboard...
+                  Welcome to Global Gateway. Redirecting your dashboard...
                 </DialogDescription>
               </>
             )}
@@ -190,22 +190,20 @@ export function SignInModal({
                 <button
                   type="button"
                   onClick={() => setTab("signin")}
-                  className={`flex-1 py-2 text-xs sm:text-[13px] font-bold rounded-full transition-all duration-300 ${
-                    tab === "signin"
-                      ? "bg-white text-neutral-900 shadow-sm"
-                      : "text-neutral-500 hover:text-neutral-800"
-                  }`}
+                  className={`flex-1 py-2 text-xs sm:text-[13px] font-bold rounded-full transition-all duration-300 ${tab === "signin"
+                    ? "bg-white text-neutral-900 shadow-sm"
+                    : "text-neutral-500 hover:text-neutral-800"
+                    }`}
                 >
                   Sign In
                 </button>
                 <button
                   type="button"
                   onClick={() => setTab("signup")}
-                  className={`flex-1 py-2 text-xs sm:text-[13px] font-bold rounded-full transition-all duration-300 ${
-                    tab === "signup"
-                      ? "bg-white text-neutral-900 shadow-sm"
-                      : "text-neutral-500 hover:text-neutral-800"
-                  }`}
+                  className={`flex-1 py-2 text-xs sm:text-[13px] font-bold rounded-full transition-all duration-300 ${tab === "signup"
+                    ? "bg-white text-neutral-900 shadow-sm"
+                    : "text-neutral-500 hover:text-neutral-800"
+                    }`}
                 >
                   Sign Up
                 </button>
@@ -216,9 +214,9 @@ export function SignInModal({
                 {/* Phone Input Box */}
                 <div className="flex items-center border border-neutral-200 rounded-2xl overflow-hidden bg-neutral-50 hover:bg-white focus-within:bg-white focus-within:border-[#4F46E5] focus-within:ring-4 focus-within:ring-[#4F46E5]/10 transition-all">
                   <div className="px-3.5 py-3 border-r border-neutral-200 flex items-center gap-1.5 text-sm font-bold text-neutral-800 bg-neutral-100/70 select-none shrink-0">
-                    <img 
-                      src="https://flagcdn.com/w40/in.png" 
-                      alt="India flag" 
+                    <img
+                      src="https://flagcdn.com/w40/in.png"
+                      alt="India flag"
                       className="w-4 h-3 rounded-xs object-cover"
                     />
                     <span>+91</span>
