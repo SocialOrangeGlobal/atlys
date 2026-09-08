@@ -114,8 +114,8 @@ function NavbarContent() {
           className={`
           flex items-center justify-between transition-all duration-500 relative
           ${effectiveScrolled
-              ? 'w-[96%] max-w-[1240px] h-15 sm:h-16 rounded-[28px] sm:rounded-[32px] bg-white/95 backdrop-blur-2xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.12)] px-3.5 sm:px-6 md:px-8'
-              : 'w-[98%] max-w-[1440px] h-16 sm:h-18 md:h-20 rounded-[28px] sm:rounded-[32px] md:rounded-[40px] bg-white/90 backdrop-blur-2xl border border-white/80 px-3.5 sm:px-6 md:px-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)]'
+              ? 'w-[96%] max-w-[1240px] h-15 sm:h-16 rounded-[28px] sm:rounded-[32px] bg-white/95 backdrop-blur-2xl border border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.12)] px-3.5 sm:px-5 md:px-6 lg:px-8'
+              : 'w-[98%] max-w-[1440px] h-16 sm:h-18 md:h-20 rounded-[28px] sm:rounded-[32px] md:rounded-[40px] bg-white/90 backdrop-blur-2xl border border-white/80 px-3.5 sm:px-5 md:px-6 lg:px-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)]'
             }
         `}
         >
@@ -175,11 +175,11 @@ function NavbarContent() {
             {!effectiveScrolled && (
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-100/90 hover:bg-neutral-200/80 border border-neutral-200/60 text-neutral-600 hover:text-neutral-900 transition-all text-[12px] font-bold shrink-0 group hover:border-[#4F46E5]/30 active:scale-95"
+                className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-100/90 hover:bg-neutral-200/80 border border-neutral-200/60 text-neutral-600 hover:text-neutral-900 transition-all text-[12px] font-bold shrink-0 group hover:border-[#4F46E5]/30 active:scale-95"
                 title="Search destinations & events (⌘K)"
               >
                 <Search className="w-3.5 h-3.5 text-neutral-400 group-hover:text-[#4F46E5] transition-colors" />
-                <span className="hidden lg:inline text-neutral-600 group-hover:text-neutral-900">Search</span>
+                <span className="hidden xl:inline text-neutral-600 group-hover:text-neutral-900">Search</span>
                 <kbd className="text-[10px] font-extrabold text-neutral-400 bg-white px-1.5 py-0.5 rounded border border-neutral-200 group-hover:border-[#4F46E5]/30">
                   ⌘K
                 </kbd>
@@ -187,24 +187,24 @@ function NavbarContent() {
             )}
 
             <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-              {/* Mobile Search Button (Compact & responsive on mobile) */}
+              {/* Mobile/Tablet Search Button (Compact & responsive on mobile & tablet) */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="flex md:hidden items-center justify-center w-8 h-8 rounded-full bg-neutral-100/90 hover:bg-neutral-200 text-neutral-700 hover:text-[#4F46E5] transition-all shrink-0 active:scale-90"
+                className="flex lg:hidden items-center justify-center w-8 h-8 rounded-full bg-neutral-100/90 hover:bg-neutral-200 text-neutral-700 hover:text-[#4F46E5] transition-all shrink-0 active:scale-90"
                 aria-label="Search destinations"
                 title="Search"
               >
                 <Search className="w-4 h-4" />
               </button>
 
-              <button className="hidden sm:flex items-center gap-1 text-[13px] sm:text-[14px] font-bold text-neutral-800 hover:text-black transition-colors shrink-0">
+              <button className="hidden xl:flex items-center gap-1 text-[13px] sm:text-[14px] font-bold text-neutral-800 hover:text-black transition-colors shrink-0">
                 EN-IN <ChevronDown className="w-3.5 h-3.5 text-neutral-500" />
               </button>
-              {/* Track Visa Action */}
+              {/* Track Visa Action (Visible on large desktop to keep tablet navbar uncluttered) */}
               <button
                 type="button"
                 onClick={() => setIsTrackOpen(true)}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 text-neutral-800 text-[12px] sm:text-[13px] font-bold shadow-xs hover:shadow-sm transition-all cursor-pointer active:scale-95 shrink-0"
+                className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 text-neutral-800 text-[12px] sm:text-[13px] font-bold shadow-xs hover:shadow-sm transition-all cursor-pointer active:scale-95 shrink-0"
               >
                 <span className="w-2 h-2 rounded-full bg-[#00d65b] animate-pulse" />
                 <span>Track Visa</span>

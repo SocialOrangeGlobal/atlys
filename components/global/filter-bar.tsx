@@ -437,7 +437,7 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
 
         {/* Visa Type */}
         <div className="relative flex-1 sm:flex-none">
-          <div onClick={() => toggleDropdown("type")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] pl-2.5 sm:pl-3 md:px-4 lg:px-8 border-r-0 md:border-r hover:opacity-80 transition-opacity">
+          <div onClick={() => toggleDropdown("type")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] pl-2.5 sm:pl-3 md:px-6 lg:px-8 border-r-0 lg:border-r hover:opacity-80 transition-opacity">
             <span className="shrink-0">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <circle cx="11" cy="11" r="11" fill="#5079EA"></circle>
@@ -462,9 +462,9 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
           </div>
         </div>
 
-        {/* Documents (Available on tablet & desktop) */}
-        <div className="relative hidden md:block">
-          <div onClick={() => toggleDropdown("documents")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] px-3 md:px-4 lg:px-8 border-r min-w-28 md:min-w-32 lg:min-w-40 hover:opacity-80 transition-opacity">
+        {/* Documents (Only on large desktop where space allows all 4 inline) */}
+        <div className="relative hidden lg:block">
+          <div onClick={() => toggleDropdown("documents")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] px-4 lg:px-8 border-r min-w-32 lg:min-w-40 hover:opacity-80 transition-opacity">
             <span className="shrink-0">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <circle cx="11" cy="11" r="11" fill="#EAA250"></circle>
@@ -488,9 +488,9 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
           </div>
         </div>
 
-        {/* Holidays (Available on tablet & desktop) */}
-        <div className="relative hidden md:block">
-          <div onClick={() => toggleDropdown("holidays")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] px-3 md:px-4 lg:px-8 border-r-0 min-w-28 md:min-w-32 lg:min-w-40 hover:opacity-80 transition-opacity">
+        {/* Holidays (Only on large desktop where space allows all 4 inline) */}
+        <div className="relative hidden lg:block">
+          <div onClick={() => toggleDropdown("holidays")} className="flex cursor-pointer items-center justify-start gap-2 md:gap-3 border-[#D6D9DC] px-4 lg:px-8 border-r-0 min-w-32 lg:min-w-40 hover:opacity-80 transition-opacity">
             <span className="shrink-0">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <circle cx="11" cy="11" r="11" fill="#EA5083"></circle>
@@ -517,54 +517,6 @@ export function FilterBar({ tab = 'explore' }: { tab?: string }) {
           </div>
         </div>
 
-      </div>
-
-      {/* Mobile Secondary Quick Filters for Documents & Holidays (< md) */}
-      <div className="flex md:hidden items-center justify-center gap-2 mt-2.5 w-full">
-        {/* Documents Quick Filter Chip */}
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => toggleDropdown("documents")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold shadow-xs backdrop-blur-md transition-all active:scale-95 ${
-              currentDocs !== 'all'
-                ? 'bg-neutral-900 text-white border-neutral-900'
-                : 'bg-white/90 text-neutral-700 border-neutral-200/90 hover:bg-white'
-            }`}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#EAA250]" />
-            <span>Docs: {currentDocs === 'all' ? 'Any' : 'Passport Only'}</span>
-            <ChevronDown className="w-3 h-3 text-current opacity-70" />
-          </button>
-          <div className={`absolute top-[125%] left-0 w-[220px] max-w-[85vw] bg-white shadow-[0_16px_36px_rgba(0,0,0,0.15)] rounded-[24px] overflow-hidden transition-all duration-300 origin-top-left px-2 py-3 z-50 ${activeDropdown === 'documents' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
-            <DropdownItem label="Any Documents" value="all" current={currentDocs} count={151} />
-            <DropdownItem label="Passport Only" value="passport" current={currentDocs} count={7} />
-          </div>
-        </div>
-
-        {/* Holidays Quick Filter Chip */}
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => toggleDropdown("holidays")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold shadow-xs backdrop-blur-md transition-all active:scale-95 ${
-              currentHolidays !== 'all'
-                ? 'bg-neutral-900 text-white border-neutral-900'
-                : 'bg-white/90 text-neutral-700 border-neutral-200/90 hover:bg-white'
-            }`}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#EA5083]" />
-            <span className="truncate max-w-[120px]">{currentHolidays === 'all' ? 'Holidays' : formatHolidayLabel(currentHolidays)}</span>
-            <ChevronDown className="w-3 h-3 text-current opacity-70" />
-          </button>
-          <div className={`absolute top-[125%] right-0 bg-white shadow-[0_20px_40px_rgba(0,0,0,0.2)] rounded-[28px] overflow-hidden transition-all duration-300 z-50 ${activeDropdown === 'holidays' ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}>
-            <CalendarDropdown
-              currentHolidays={currentHolidays}
-              onSelect={(dateStr) => handleFilter('holidays', dateStr)}
-              onClear={() => handleFilter('holidays', 'all')}
-            />
-          </div>
-        </div>
       </div>
 
     </div>
